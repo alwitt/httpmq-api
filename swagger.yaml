@@ -1,0 +1,1096 @@
+basePath: /
+definitions:
+  apis.APIRestReqStreamSubjects:
+    properties:
+      subjects:
+        description: Subjects the list of new subject this stream will listen to
+        items:
+          type: string
+        type: array
+    required:
+    - subjects
+    type: object
+  apis.APIRestRespAllJetStreamConsumers:
+    properties:
+      consumers:
+        additionalProperties:
+          $ref: '#/definitions/apis.APIRestRespConsumerInfo'
+        description: Consumers the set of consumer details mapped against consumer
+          name
+        type: object
+      error:
+        $ref: '#/definitions/apis.ErrorDetail'
+        description: Error are details in case of errors
+      success:
+        description: Success indicates whether the request was successful
+        type: boolean
+    type: object
+  apis.APIRestRespAllJetStreams:
+    properties:
+      error:
+        $ref: '#/definitions/apis.ErrorDetail'
+        description: Error are details in case of errors
+      streams:
+        additionalProperties:
+          $ref: '#/definitions/apis.APIRestRespStreamInfo'
+        description: Streams the set of stream details mapped against its names
+        type: object
+      success:
+        description: Success indicates whether the request was successful
+        type: boolean
+    type: object
+  apis.APIRestRespConsumerConfig:
+    properties:
+      ack_wait:
+        description: AckWait duration (ns) to wait for an ACK for the delivery of
+          a message
+        type: integer
+      deliver_group:
+        description: |-
+          DeliverGroup is the delivery group if this consumer uses delivery group
+
+          A consumer using delivery group allows multiple clients to subscribe under the same consumer
+          and group name tuple. For subjects this consumer listens to, the messages will be shared
+          amongst the connected clients.
+        type: string
+      deliver_subject:
+        description: DeliverSubject subject this consumer is listening on
+        type: string
+      filter_subject:
+        description: |-
+          FilterSubject sets the consumer to filter for subjects matching this NATs subject string
+
+          See https://docs.nats.io/running-a-nats-service/nats_admin/jetstream_admin/naming
+        type: string
+      max_ack_pending:
+        description: MaxAckPending controls the max number of un-ACKed messages permitted
+          in-flight
+        type: integer
+      max_deliver:
+        description: MaxDeliver max number of times a message can be deliveried (including
+          retry) to this consumer
+        type: integer
+      max_waiting:
+        description: MaxWaiting NATS JetStream does not clearly document this
+        type: integer
+      notes:
+        description: Description an optional description of the consumer
+        type: string
+    type: object
+  apis.APIRestRespConsumerInfo:
+    properties:
+      ack_floor:
+        $ref: '#/definitions/apis.APIRestRespSequenceInfo'
+        description: |-
+          AckFloor is the sequence number of the last received ACKed
+
+          For messages which failed to be ACKed (retry limit reached), the floor moves up to
+          include these message sequence numbers indicating these messages will not be retried.
+      config:
+        $ref: '#/definitions/apis.APIRestRespConsumerConfig'
+        description: Config are the consumer config parameters
+      created:
+        description: Created is when this consumer was defined
+        type: string
+      delivered:
+        $ref: '#/definitions/apis.APIRestRespSequenceInfo'
+        description: Delivered is the sequence number of the last message delivered
+      name:
+        description: Name is the name of the consumer
+        type: string
+      num_ack_pending:
+        description: NumAckPending is the number of ACK pending / messages in-flight
+        type: integer
+      num_pending:
+        description: NumPending is the number of message to be delivered for this
+          consumer
+        type: integer
+      num_redelivered:
+        description: NumRedelivered is the number of messages redelivered
+        type: integer
+      num_waiting:
+        description: NumWaiting NATS JetStream does not clearly document this
+        type: integer
+      stream_name:
+        description: Stream is the name of the stream
+        type: string
+    type: object
+  apis.APIRestRespOneJetStream:
+    properties:
+      error:
+        $ref: '#/definitions/apis.ErrorDetail'
+        description: Error are details in case of errors
+      stream:
+        $ref: '#/definitions/apis.APIRestRespStreamInfo'
+        description: Stream the details for this stream
+      success:
+        description: Success indicates whether the request was successful
+        type: boolean
+    type: object
+  apis.APIRestRespOneJetStreamConsumer:
+    properties:
+      consumer:
+        $ref: '#/definitions/apis.APIRestRespConsumerInfo'
+        description: Consumer the details regarding this consumer
+      error:
+        $ref: '#/definitions/apis.ErrorDetail'
+        description: Error are details in case of errors
+      success:
+        description: Success indicates whether the request was successful
+        type: boolean
+    type: object
+  apis.APIRestRespSequenceInfo:
+    properties:
+      consumer_seq:
+        description: Consumer is consumer level sequence number
+        type: integer
+      last_active:
+        description: Last timestamp when these values updated
+        type: string
+      stream_seq:
+        description: Stream is stream level sequence number
+        type: integer
+    type: object
+  apis.APIRestRespStreamConfig:
+    properties:
+      description:
+        description: Description is an optional description of the stream
+        type: string
+      max_age:
+        description: |-
+          MaxBytes is the max duration (ns) the stream will store a message
+
+          Messages breaching the limit will be removed.
+        type: integer
+      max_bytes:
+        description: |-
+          MaxBytes is the max number of message bytes the stream will store.
+
+          Oldest messages are removed once limit breached.
+        type: integer
+      max_consumers:
+        description: MaxConsumers is the max number of consumers allowed on the stream
+        type: integer
+      max_msg_size:
+        description: MaxMsgSize is the max size of a message allowed in this stream
+        type: integer
+      max_msgs:
+        description: |-
+          MaxMsgs is the max number of messages the stream will store.
+
+          Oldest messages are removed once limit breached.
+        type: integer
+      max_msgs_per_subject:
+        description: MaxMsgsPerSubject is the maximum number of subjects allowed on
+          this stream
+        type: integer
+      name:
+        description: Name is the stream name
+        type: string
+      subjects:
+        description: Subjects is the list subjects this stream is listening on
+        items:
+          type: string
+        type: array
+    type: object
+  apis.APIRestRespStreamInfo:
+    properties:
+      config:
+        $ref: '#/definitions/apis.APIRestRespStreamConfig'
+        description: Config is the stream config parameters
+      created:
+        description: Created is the stream creation timestamp
+        type: string
+      state:
+        $ref: '#/definitions/apis.APIRestRespStreamState'
+        description: State is the stream current state
+    type: object
+  apis.APIRestRespStreamState:
+    properties:
+      bytes:
+        description: Bytes is the number of message bytes in the stream
+        type: integer
+      consumer_count:
+        description: Consumers number of consumers on the stream
+        type: integer
+      first_seq:
+        description: FirstSeq is the oldest message sequence number on the stream
+        type: integer
+      first_ts:
+        description: FirstTime is the oldest message timestamp on the stream
+        type: string
+      last_seq:
+        description: LastSeq is the newest message sequence number on the stream
+        type: integer
+      last_ts:
+        description: LastTime is the newest message timestamp on the stream
+        type: string
+      messages:
+        description: Msgs is the number of messages in the stream
+        type: integer
+    type: object
+  apis.ErrorDetail:
+    properties:
+      code:
+        description: Code is the response code
+        type: integer
+      message:
+        description: Msg is an optional descriptive message
+        type: string
+    type: object
+  apis.StandardResponse:
+    properties:
+      error:
+        $ref: '#/definitions/apis.ErrorDetail'
+        description: Error are details in case of errors
+      success:
+        description: Success indicates whether the request was successful
+        type: boolean
+    type: object
+  dataplane.AckSeqNum:
+    properties:
+      consumer:
+        description: Consumer is the JetStream message sequence number for this consumer
+        type: integer
+      stream:
+        description: Stream is the JetStream message sequence number for this stream
+        type: integer
+    required:
+    - consumer
+    - stream
+    type: object
+  management.JSStreamLimits:
+    properties:
+      max_age:
+        description: |-
+          MaxAge is the max duration (ns) the stream will store a message
+
+          Messages breaching the limit will be removed.
+        type: integer
+      max_bytes:
+        description: |-
+          MaxBytes is the max number of message bytes the stream will store.
+
+          Oldest messages are removed once limit breached.
+        type: integer
+      max_consumers:
+        description: MaxConsumers is the max number of consumers allowed on the stream
+        type: integer
+      max_msg_size:
+        description: MaxMsgSize is the max size of a message allowed in this stream
+        type: integer
+      max_msgs:
+        description: |-
+          MaxMsgs is the max number of messages the stream will store.
+
+          Oldest messages are removed once limit breached.
+        type: integer
+      max_msgs_per_subject:
+        description: MaxMsgsPerSubject is the maximum number of subjects allowed on
+          this stream
+        type: integer
+    type: object
+  management.JSStreamParam:
+    properties:
+      max_age:
+        description: |-
+          MaxAge is the max duration (ns) the stream will store a message
+
+          Messages breaching the limit will be removed.
+        type: integer
+      max_bytes:
+        description: |-
+          MaxBytes is the max number of message bytes the stream will store.
+
+          Oldest messages are removed once limit breached.
+        type: integer
+      max_consumers:
+        description: MaxConsumers is the max number of consumers allowed on the stream
+        type: integer
+      max_msg_size:
+        description: MaxMsgSize is the max size of a message allowed in this stream
+        type: integer
+      max_msgs:
+        description: |-
+          MaxMsgs is the max number of messages the stream will store.
+
+          Oldest messages are removed once limit breached.
+        type: integer
+      max_msgs_per_subject:
+        description: MaxMsgsPerSubject is the maximum number of subjects allowed on
+          this stream
+        type: integer
+      name:
+        description: Name is the stream name
+        type: string
+      subjects:
+        description: Subjects is the list of subjects of interest for this stream
+        items:
+          type: string
+        type: array
+    required:
+    - name
+    type: object
+  management.JetStreamConsumerParam:
+    properties:
+      ack_wait:
+        description: AckWait when specified, the number of ns to wait for ACK before
+          retry
+        type: integer
+      delivery_group:
+        description: |-
+          DeliveryGroup creates a consumer using a delivery group name.
+
+          A consumer using delivery group allows multiple clients to subscribe under the same consumer
+          and group name tuple. For subjects this consumer listens to, the messages will be shared
+          amongst the connected clients.
+        type: string
+      filter_subject:
+        description: |-
+          FilterSubject sets the consumer to filter for subjects matching this NATs subject string
+
+          See https://docs.nats.io/running-a-nats-service/nats_admin/jetstream_admin/naming
+        type: string
+      max_inflight:
+        description: MaxInflight is max number of un-ACKed message permitted in-flight
+          (must be >= 1)
+        type: integer
+      max_retry:
+        description: 'MaxRetry max number of times an un-ACKed message is resent (-1:
+          infinite)'
+        type: integer
+      mode:
+        description: Mode whether the consumer is push or pull consumer
+        type: string
+      name:
+        description: Name is the consumer name
+        type: string
+      notes:
+        description: Notes are descriptions regarding this consumer
+        type: string
+    required:
+    - max_inflight
+    - mode
+    - name
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  description: HTTP/2 based message broker built around NATS JetStream
+  title: httpmq
+  version: v0.1.0
+paths:
+  /alive:
+    get:
+      description: Will return success to indicate REST API module is live
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "400":
+          description: error
+          schema:
+            type: string
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: For liveness check
+      tags:
+      - Management
+      - get
+      - health
+  /ready:
+    get:
+      description: Will return success if REST API module is ready for use
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "400":
+          description: error
+          schema:
+            type: string
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: For readiness check
+      tags:
+      - Management
+      - get
+      - health
+  /v1/admin/stream:
+    get:
+      description: Query for the details of all streams
+      parameters:
+      - description: JetStream stream setting
+        in: body
+        name: setting
+        required: true
+        schema:
+          $ref: '#/definitions/management.JSStreamParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.APIRestRespAllJetStreams'
+        "400":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: Query for info on all streams
+      tags:
+      - Management
+      - get
+      - stream
+    post:
+      consumes:
+      - application/json
+      description: Define new JetStream stream
+      parameters:
+      - description: JetStream stream setting
+        in: body
+        name: setting
+        required: true
+        schema:
+          $ref: '#/definitions/management.JSStreamParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "400":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: Define new stream
+      tags:
+      - Management
+      - post
+      - stream
+  /v1/admin/stream/{streamName}:
+    delete:
+      description: Delete a stream
+      parameters:
+      - description: JetStream stream name
+        in: path
+        name: streamName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "400":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: Delete a stream
+      tags:
+      - Management
+      - delete
+      - stream
+    get:
+      description: Query for the details of one stream
+      parameters:
+      - description: JetStream stream name
+        in: path
+        name: streamName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.APIRestRespOneJetStream'
+        "400":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: Query for info on one stream
+      tags:
+      - Management
+      - get
+      - stream
+  /v1/admin/stream/{streamName}/consumer:
+    get:
+      description: Query for the details of all consumers of a stream
+      parameters:
+      - description: JetStream stream name
+        in: path
+        name: streamName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.APIRestRespAllJetStreamConsumers'
+        "400":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: Get all consumers of a stream
+      tags:
+      - Management
+      - get
+      - consumer
+    post:
+      consumes:
+      - application/json
+      description: Create a new consumer on a stream. The stream must already be defined.
+      parameters:
+      - description: JetStream stream name
+        in: path
+        name: streamName
+        required: true
+        type: string
+      - description: Consumer parameters
+        in: body
+        name: consumerParam
+        required: true
+        schema:
+          $ref: '#/definitions/management.JetStreamConsumerParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "400":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: Create a consumer on a stream
+      tags:
+      - Management
+      - post
+      - consumer
+  /v1/admin/stream/{streamName}/consumer/{consumerName}:
+    delete:
+      description: Delete one consumer of a stream
+      parameters:
+      - description: JetStream stream name
+        in: path
+        name: streamName
+        required: true
+        type: string
+      - description: JetStream consumer name
+        in: path
+        name: consumerName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "400":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: Delete one consumer of a stream
+      tags:
+      - Management
+      - delete
+      - consumer
+    get:
+      description: Query for the details of a consumer on a stream
+      parameters:
+      - description: JetStream stream name
+        in: path
+        name: streamName
+        required: true
+        type: string
+      - description: JetStream consumer name
+        in: path
+        name: consumerName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.APIRestRespOneJetStreamConsumer'
+        "400":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: Get one consumer of a stream
+      tags:
+      - Management
+      - get
+      - consumer
+  /v1/admin/stream/{streamName}/limit:
+    put:
+      consumes:
+      - application/json
+      description: Change the data retention limits of a stream
+      parameters:
+      - description: JetStream stream name
+        in: path
+        name: streamName
+        required: true
+        type: string
+      - description: New stream limits
+        in: body
+        name: limits
+        required: true
+        schema:
+          $ref: '#/definitions/management.JSStreamLimits'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "400":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: Change limits a stream
+      tags:
+      - Management
+      - put
+      - stream
+  /v1/admin/stream/{streamName}/subject:
+    put:
+      consumes:
+      - application/json
+      description: Change the list of subjects of interest for a stream
+      parameters:
+      - description: JetStream stream name
+        in: path
+        name: streamName
+        required: true
+        type: string
+      - description: List of new subjects
+        in: body
+        name: subjects
+        required: true
+        schema:
+          $ref: '#/definitions/apis.APIRestReqStreamSubjects'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "400":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: Change subjects of a stream
+      tags:
+      - Management
+      - put
+      - stream
+  /v1/data/stream/{streamName}/consumer/{consumerName}:
+    get:
+      description: Establish a JetStream pull subscribe session for a client. This
+        is a long lived
+      parameters:
+      - description: JetStream stream name
+        in: path
+        name: streamName
+        required: true
+        type: string
+      - description: JetStream consumer name
+        in: path
+        name: consumerName
+        required: true
+        type: string
+      - description: JetStream subject to subscribe to
+        in: query
+        name: subject_name
+        required: true
+        type: string
+      - description: 'Max number of inflight messages (DEFAULT: 1)'
+        in: query
+        name: max_msg_inflight
+        type: integer
+      - description: Needed if consumer uses delivery groups
+        in: query
+        name: delivery_group
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "400":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: Establish a pull subscribe session
+      tags:
+      - Dataplane
+      - get
+      - subscribe
+  /v1/data/stream/{streamName}/consumer/{consumerName}/ack:
+    post:
+      consumes:
+      - application/json
+      description: Process JetStream message ACK for a stream / consumer
+      parameters:
+      - description: JetStream stream name
+        in: path
+        name: streamName
+        required: true
+        type: string
+      - description: JetStream consumer name
+        in: path
+        name: consumerName
+        required: true
+        type: string
+      - description: Message message sequence numbers
+        in: body
+        name: sequenceNum
+        required: true
+        schema:
+          $ref: '#/definitions/dataplane.AckSeqNum'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "400":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: Handle ACK for message
+      tags:
+      - Dataplane
+      - post
+      - subscribe
+  /v1/data/subject/{subjectName}:
+    post:
+      consumes:
+      - text/plain
+      description: Publish a Base64 encoded message to a JetStream subject
+      parameters:
+      - description: JetStream subject to publish under
+        in: path
+        name: subjectName
+        required: true
+        type: string
+      - description: Message to publish in Base64 encoding
+        in: body
+        name: message
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "400":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          headers:
+            Httpmq-Request-ID:
+              description: Request ID to match against logs
+              type: string
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: Publish a message
+      tags:
+      - Dataplane
+      - post
+      - publish
+swagger: "2.0"

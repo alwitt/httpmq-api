@@ -1,0 +1,1511 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "HTTP/2 based message broker built around NATS JetStream",
+        "title": "httpmq",
+        "contact": {},
+        "version": "v0.1.0"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "paths": {
+        "/alive": {
+            "get": {
+                "description": "Will return success to indicate REST API module is live",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management",
+                    "get",
+                    "health"
+                ],
+                "summary": "For liveness check",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/ready": {
+            "get": {
+                "description": "Will return success if REST API module is ready for use",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management",
+                    "get",
+                    "health"
+                ],
+                "summary": "For readiness check",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/admin/stream": {
+            "get": {
+                "description": "Query for the details of all streams",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management",
+                    "get",
+                    "stream"
+                ],
+                "summary": "Query for info on all streams",
+                "parameters": [
+                    {
+                        "description": "JetStream stream setting",
+                        "name": "setting",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/management.JSStreamParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.APIRestRespAllJetStreams"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Define new JetStream stream",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management",
+                    "post",
+                    "stream"
+                ],
+                "summary": "Define new stream",
+                "parameters": [
+                    {
+                        "description": "JetStream stream setting",
+                        "name": "setting",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/management.JSStreamParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/admin/stream/{streamName}": {
+            "get": {
+                "description": "Query for the details of one stream",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management",
+                    "get",
+                    "stream"
+                ],
+                "summary": "Query for info on one stream",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JetStream stream name",
+                        "name": "streamName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.APIRestRespOneJetStream"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a stream",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management",
+                    "delete",
+                    "stream"
+                ],
+                "summary": "Delete a stream",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JetStream stream name",
+                        "name": "streamName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/admin/stream/{streamName}/consumer": {
+            "get": {
+                "description": "Query for the details of all consumers of a stream",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management",
+                    "get",
+                    "consumer"
+                ],
+                "summary": "Get all consumers of a stream",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JetStream stream name",
+                        "name": "streamName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.APIRestRespAllJetStreamConsumers"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new consumer on a stream. The stream must already be defined.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management",
+                    "post",
+                    "consumer"
+                ],
+                "summary": "Create a consumer on a stream",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JetStream stream name",
+                        "name": "streamName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Consumer parameters",
+                        "name": "consumerParam",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/management.JetStreamConsumerParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/admin/stream/{streamName}/consumer/{consumerName}": {
+            "get": {
+                "description": "Query for the details of a consumer on a stream",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management",
+                    "get",
+                    "consumer"
+                ],
+                "summary": "Get one consumer of a stream",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JetStream stream name",
+                        "name": "streamName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "JetStream consumer name",
+                        "name": "consumerName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.APIRestRespOneJetStreamConsumer"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete one consumer of a stream",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management",
+                    "delete",
+                    "consumer"
+                ],
+                "summary": "Delete one consumer of a stream",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JetStream stream name",
+                        "name": "streamName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "JetStream consumer name",
+                        "name": "consumerName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/admin/stream/{streamName}/limit": {
+            "put": {
+                "description": "Change the data retention limits of a stream",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management",
+                    "put",
+                    "stream"
+                ],
+                "summary": "Change limits a stream",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JetStream stream name",
+                        "name": "streamName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "New stream limits",
+                        "name": "limits",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/management.JSStreamLimits"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/admin/stream/{streamName}/subject": {
+            "put": {
+                "description": "Change the list of subjects of interest for a stream",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Management",
+                    "put",
+                    "stream"
+                ],
+                "summary": "Change subjects of a stream",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JetStream stream name",
+                        "name": "streamName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "List of new subjects",
+                        "name": "subjects",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/apis.APIRestReqStreamSubjects"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/data/stream/{streamName}/consumer/{consumerName}": {
+            "get": {
+                "description": "Establish a JetStream pull subscribe session for a client. This is a long lived",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dataplane",
+                    "get",
+                    "subscribe"
+                ],
+                "summary": "Establish a pull subscribe session",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JetStream stream name",
+                        "name": "streamName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "JetStream consumer name",
+                        "name": "consumerName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "JetStream subject to subscribe to",
+                        "name": "subject_name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of inflight messages (DEFAULT: 1)",
+                        "name": "max_msg_inflight",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Needed if consumer uses delivery groups",
+                        "name": "delivery_group",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/data/stream/{streamName}/consumer/{consumerName}/ack": {
+            "post": {
+                "description": "Process JetStream message ACK for a stream / consumer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dataplane",
+                    "post",
+                    "subscribe"
+                ],
+                "summary": "Handle ACK for message",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JetStream stream name",
+                        "name": "streamName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "JetStream consumer name",
+                        "name": "consumerName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Message message sequence numbers",
+                        "name": "sequenceNum",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dataplane.AckSeqNum"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/data/subject/{subjectName}": {
+            "post": {
+                "description": "Publish a Base64 encoded message to a JetStream subject",
+                "consumes": [
+                    "text/plain"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dataplane",
+                    "post",
+                    "publish"
+                ],
+                "summary": "Publish a message",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "JetStream subject to publish under",
+                        "name": "subjectName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Message to publish in Base64 encoding",
+                        "name": "message",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        },
+                        "headers": {
+                            "Httpmq-Request-ID": {
+                                "type": "string",
+                                "description": "Request ID to match against logs"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "apis.APIRestReqStreamSubjects": {
+            "type": "object",
+            "required": [
+                "subjects"
+            ],
+            "properties": {
+                "subjects": {
+                    "description": "Subjects the list of new subject this stream will listen to",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "apis.APIRestRespAllJetStreamConsumers": {
+            "type": "object",
+            "properties": {
+                "consumers": {
+                    "description": "Consumers the set of consumer details mapped against consumer name",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/apis.APIRestRespConsumerInfo"
+                    }
+                },
+                "error": {
+                    "description": "Error are details in case of errors",
+                    "$ref": "#/definitions/apis.ErrorDetail"
+                },
+                "success": {
+                    "description": "Success indicates whether the request was successful",
+                    "type": "boolean"
+                }
+            }
+        },
+        "apis.APIRestRespAllJetStreams": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "description": "Error are details in case of errors",
+                    "$ref": "#/definitions/apis.ErrorDetail"
+                },
+                "streams": {
+                    "description": "Streams the set of stream details mapped against its names",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/apis.APIRestRespStreamInfo"
+                    }
+                },
+                "success": {
+                    "description": "Success indicates whether the request was successful",
+                    "type": "boolean"
+                }
+            }
+        },
+        "apis.APIRestRespConsumerConfig": {
+            "type": "object",
+            "properties": {
+                "ack_wait": {
+                    "description": "AckWait duration (ns) to wait for an ACK for the delivery of a message",
+                    "type": "integer"
+                },
+                "deliver_group": {
+                    "description": "DeliverGroup is the delivery group if this consumer uses delivery group\n\nA consumer using delivery group allows multiple clients to subscribe under the same consumer\nand group name tuple. For subjects this consumer listens to, the messages will be shared\namongst the connected clients.",
+                    "type": "string"
+                },
+                "deliver_subject": {
+                    "description": "DeliverSubject subject this consumer is listening on",
+                    "type": "string"
+                },
+                "filter_subject": {
+                    "description": "FilterSubject sets the consumer to filter for subjects matching this NATs subject string\n\nSee https://docs.nats.io/running-a-nats-service/nats_admin/jetstream_admin/naming",
+                    "type": "string"
+                },
+                "max_ack_pending": {
+                    "description": "MaxAckPending controls the max number of un-ACKed messages permitted in-flight",
+                    "type": "integer"
+                },
+                "max_deliver": {
+                    "description": "MaxDeliver max number of times a message can be deliveried (including retry) to this consumer",
+                    "type": "integer"
+                },
+                "max_waiting": {
+                    "description": "MaxWaiting NATS JetStream does not clearly document this",
+                    "type": "integer"
+                },
+                "notes": {
+                    "description": "Description an optional description of the consumer",
+                    "type": "string"
+                }
+            }
+        },
+        "apis.APIRestRespConsumerInfo": {
+            "type": "object",
+            "properties": {
+                "ack_floor": {
+                    "description": "AckFloor is the sequence number of the last received ACKed\n\nFor messages which failed to be ACKed (retry limit reached), the floor moves up to\ninclude these message sequence numbers indicating these messages will not be retried.",
+                    "$ref": "#/definitions/apis.APIRestRespSequenceInfo"
+                },
+                "config": {
+                    "description": "Config are the consumer config parameters",
+                    "$ref": "#/definitions/apis.APIRestRespConsumerConfig"
+                },
+                "created": {
+                    "description": "Created is when this consumer was defined",
+                    "type": "string"
+                },
+                "delivered": {
+                    "description": "Delivered is the sequence number of the last message delivered",
+                    "$ref": "#/definitions/apis.APIRestRespSequenceInfo"
+                },
+                "name": {
+                    "description": "Name is the name of the consumer",
+                    "type": "string"
+                },
+                "num_ack_pending": {
+                    "description": "NumAckPending is the number of ACK pending / messages in-flight",
+                    "type": "integer"
+                },
+                "num_pending": {
+                    "description": "NumPending is the number of message to be delivered for this consumer",
+                    "type": "integer"
+                },
+                "num_redelivered": {
+                    "description": "NumRedelivered is the number of messages redelivered",
+                    "type": "integer"
+                },
+                "num_waiting": {
+                    "description": "NumWaiting NATS JetStream does not clearly document this",
+                    "type": "integer"
+                },
+                "stream_name": {
+                    "description": "Stream is the name of the stream",
+                    "type": "string"
+                }
+            }
+        },
+        "apis.APIRestRespOneJetStream": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "description": "Error are details in case of errors",
+                    "$ref": "#/definitions/apis.ErrorDetail"
+                },
+                "stream": {
+                    "description": "Stream the details for this stream",
+                    "$ref": "#/definitions/apis.APIRestRespStreamInfo"
+                },
+                "success": {
+                    "description": "Success indicates whether the request was successful",
+                    "type": "boolean"
+                }
+            }
+        },
+        "apis.APIRestRespOneJetStreamConsumer": {
+            "type": "object",
+            "properties": {
+                "consumer": {
+                    "description": "Consumer the details regarding this consumer",
+                    "$ref": "#/definitions/apis.APIRestRespConsumerInfo"
+                },
+                "error": {
+                    "description": "Error are details in case of errors",
+                    "$ref": "#/definitions/apis.ErrorDetail"
+                },
+                "success": {
+                    "description": "Success indicates whether the request was successful",
+                    "type": "boolean"
+                }
+            }
+        },
+        "apis.APIRestRespSequenceInfo": {
+            "type": "object",
+            "properties": {
+                "consumer_seq": {
+                    "description": "Consumer is consumer level sequence number",
+                    "type": "integer"
+                },
+                "last_active": {
+                    "description": "Last timestamp when these values updated",
+                    "type": "string"
+                },
+                "stream_seq": {
+                    "description": "Stream is stream level sequence number",
+                    "type": "integer"
+                }
+            }
+        },
+        "apis.APIRestRespStreamConfig": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "description": "Description is an optional description of the stream",
+                    "type": "string"
+                },
+                "max_age": {
+                    "description": "MaxBytes is the max duration (ns) the stream will store a message\n\nMessages breaching the limit will be removed.",
+                    "type": "integer"
+                },
+                "max_bytes": {
+                    "description": "MaxBytes is the max number of message bytes the stream will store.\n\nOldest messages are removed once limit breached.",
+                    "type": "integer"
+                },
+                "max_consumers": {
+                    "description": "MaxConsumers is the max number of consumers allowed on the stream",
+                    "type": "integer"
+                },
+                "max_msg_size": {
+                    "description": "MaxMsgSize is the max size of a message allowed in this stream",
+                    "type": "integer"
+                },
+                "max_msgs": {
+                    "description": "MaxMsgs is the max number of messages the stream will store.\n\nOldest messages are removed once limit breached.",
+                    "type": "integer"
+                },
+                "max_msgs_per_subject": {
+                    "description": "MaxMsgsPerSubject is the maximum number of subjects allowed on this stream",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Name is the stream name",
+                    "type": "string"
+                },
+                "subjects": {
+                    "description": "Subjects is the list subjects this stream is listening on",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "apis.APIRestRespStreamInfo": {
+            "type": "object",
+            "properties": {
+                "config": {
+                    "description": "Config is the stream config parameters",
+                    "$ref": "#/definitions/apis.APIRestRespStreamConfig"
+                },
+                "created": {
+                    "description": "Created is the stream creation timestamp",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "State is the stream current state",
+                    "$ref": "#/definitions/apis.APIRestRespStreamState"
+                }
+            }
+        },
+        "apis.APIRestRespStreamState": {
+            "type": "object",
+            "properties": {
+                "bytes": {
+                    "description": "Bytes is the number of message bytes in the stream",
+                    "type": "integer"
+                },
+                "consumer_count": {
+                    "description": "Consumers number of consumers on the stream",
+                    "type": "integer"
+                },
+                "first_seq": {
+                    "description": "FirstSeq is the oldest message sequence number on the stream",
+                    "type": "integer"
+                },
+                "first_ts": {
+                    "description": "FirstTime is the oldest message timestamp on the stream",
+                    "type": "string"
+                },
+                "last_seq": {
+                    "description": "LastSeq is the newest message sequence number on the stream",
+                    "type": "integer"
+                },
+                "last_ts": {
+                    "description": "LastTime is the newest message timestamp on the stream",
+                    "type": "string"
+                },
+                "messages": {
+                    "description": "Msgs is the number of messages in the stream",
+                    "type": "integer"
+                }
+            }
+        },
+        "apis.ErrorDetail": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "Code is the response code",
+                    "type": "integer"
+                },
+                "message": {
+                    "description": "Msg is an optional descriptive message",
+                    "type": "string"
+                }
+            }
+        },
+        "apis.StandardResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "description": "Error are details in case of errors",
+                    "$ref": "#/definitions/apis.ErrorDetail"
+                },
+                "success": {
+                    "description": "Success indicates whether the request was successful",
+                    "type": "boolean"
+                }
+            }
+        },
+        "dataplane.AckSeqNum": {
+            "type": "object",
+            "required": [
+                "consumer",
+                "stream"
+            ],
+            "properties": {
+                "consumer": {
+                    "description": "Consumer is the JetStream message sequence number for this consumer",
+                    "type": "integer"
+                },
+                "stream": {
+                    "description": "Stream is the JetStream message sequence number for this stream",
+                    "type": "integer"
+                }
+            }
+        },
+        "management.JSStreamLimits": {
+            "type": "object",
+            "properties": {
+                "max_age": {
+                    "description": "MaxAge is the max duration (ns) the stream will store a message\n\nMessages breaching the limit will be removed.",
+                    "type": "integer"
+                },
+                "max_bytes": {
+                    "description": "MaxBytes is the max number of message bytes the stream will store.\n\nOldest messages are removed once limit breached.",
+                    "type": "integer"
+                },
+                "max_consumers": {
+                    "description": "MaxConsumers is the max number of consumers allowed on the stream",
+                    "type": "integer"
+                },
+                "max_msg_size": {
+                    "description": "MaxMsgSize is the max size of a message allowed in this stream",
+                    "type": "integer"
+                },
+                "max_msgs": {
+                    "description": "MaxMsgs is the max number of messages the stream will store.\n\nOldest messages are removed once limit breached.",
+                    "type": "integer"
+                },
+                "max_msgs_per_subject": {
+                    "description": "MaxMsgsPerSubject is the maximum number of subjects allowed on this stream",
+                    "type": "integer"
+                }
+            }
+        },
+        "management.JSStreamParam": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "max_age": {
+                    "description": "MaxAge is the max duration (ns) the stream will store a message\n\nMessages breaching the limit will be removed.",
+                    "type": "integer"
+                },
+                "max_bytes": {
+                    "description": "MaxBytes is the max number of message bytes the stream will store.\n\nOldest messages are removed once limit breached.",
+                    "type": "integer"
+                },
+                "max_consumers": {
+                    "description": "MaxConsumers is the max number of consumers allowed on the stream",
+                    "type": "integer"
+                },
+                "max_msg_size": {
+                    "description": "MaxMsgSize is the max size of a message allowed in this stream",
+                    "type": "integer"
+                },
+                "max_msgs": {
+                    "description": "MaxMsgs is the max number of messages the stream will store.\n\nOldest messages are removed once limit breached.",
+                    "type": "integer"
+                },
+                "max_msgs_per_subject": {
+                    "description": "MaxMsgsPerSubject is the maximum number of subjects allowed on this stream",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Name is the stream name",
+                    "type": "string"
+                },
+                "subjects": {
+                    "description": "Subjects is the list of subjects of interest for this stream",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "management.JetStreamConsumerParam": {
+            "type": "object",
+            "required": [
+                "max_inflight",
+                "mode",
+                "name"
+            ],
+            "properties": {
+                "ack_wait": {
+                    "description": "AckWait when specified, the number of ns to wait for ACK before retry",
+                    "type": "integer"
+                },
+                "delivery_group": {
+                    "description": "DeliveryGroup creates a consumer using a delivery group name.\n\nA consumer using delivery group allows multiple clients to subscribe under the same consumer\nand group name tuple. For subjects this consumer listens to, the messages will be shared\namongst the connected clients.",
+                    "type": "string"
+                },
+                "filter_subject": {
+                    "description": "FilterSubject sets the consumer to filter for subjects matching this NATs subject string\n\nSee https://docs.nats.io/running-a-nats-service/nats_admin/jetstream_admin/naming",
+                    "type": "string"
+                },
+                "max_inflight": {
+                    "description": "MaxInflight is max number of un-ACKed message permitted in-flight (must be \u003e= 1)",
+                    "type": "integer"
+                },
+                "max_retry": {
+                    "description": "MaxRetry max number of times an un-ACKed message is resent (-1: infinite)",
+                    "type": "integer"
+                },
+                "mode": {
+                    "description": "Mode whether the consumer is push or pull consumer",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name is the consumer name",
+                    "type": "string"
+                },
+                "notes": {
+                    "description": "Notes are descriptions regarding this consumer",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
