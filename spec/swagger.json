@@ -4,7 +4,7 @@
         "description": "HTTP/2 based message broker built around NATS JetStream",
         "title": "httpmq",
         "contact": {},
-        "version": "v0.1.0"
+        "version": "v0.1.1"
     },
     "host": "localhost:3000",
     "basePath": "/",
@@ -16,9 +16,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Management",
-                    "get",
-                    "health"
+                    "Management"
                 ],
                 "summary": "For liveness check",
                 "responses": {
@@ -56,9 +54,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Management",
-                    "get",
-                    "health"
+                    "Management"
                 ],
                 "summary": "For readiness check",
                 "responses": {
@@ -96,9 +92,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Management",
-                    "get",
-                    "stream"
+                    "Management"
                 ],
                 "summary": "Query for info on all streams",
                 "parameters": [
@@ -166,9 +160,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Management",
-                    "post",
-                    "stream"
+                    "Management"
                 ],
                 "summary": "Define new stream",
                 "parameters": [
@@ -235,9 +227,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Management",
-                    "get",
-                    "stream"
+                    "Management"
                 ],
                 "summary": "Query for info on one stream",
                 "parameters": [
@@ -300,9 +290,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Management",
-                    "delete",
-                    "stream"
+                    "Management"
                 ],
                 "summary": "Delete a stream",
                 "parameters": [
@@ -367,9 +355,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Management",
-                    "get",
-                    "consumer"
+                    "Management"
                 ],
                 "summary": "Get all consumers of a stream",
                 "parameters": [
@@ -435,9 +421,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Management",
-                    "post",
-                    "consumer"
+                    "Management"
                 ],
                 "summary": "Create a consumer on a stream",
                 "parameters": [
@@ -511,9 +495,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Management",
-                    "get",
-                    "consumer"
+                    "Management"
                 ],
                 "summary": "Get one consumer of a stream",
                 "parameters": [
@@ -583,9 +565,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Management",
-                    "delete",
-                    "consumer"
+                    "Management"
                 ],
                 "summary": "Delete one consumer of a stream",
                 "parameters": [
@@ -660,9 +640,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Management",
-                    "put",
-                    "stream"
+                    "Management"
                 ],
                 "summary": "Change limits a stream",
                 "parameters": [
@@ -739,9 +717,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Management",
-                    "put",
-                    "stream"
+                    "Management"
                 ],
                 "summary": "Change subjects of a stream",
                 "parameters": [
@@ -815,9 +791,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Dataplane",
-                    "get",
-                    "subscribe"
+                    "Dataplane"
                 ],
                 "summary": "Establish a pull subscribe session",
                 "parameters": [
@@ -911,9 +885,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Dataplane",
-                    "post",
-                    "subscribe"
+                    "Dataplane"
                 ],
                 "summary": "Handle ACK for message",
                 "parameters": [
@@ -997,9 +969,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Dataplane",
-                    "post",
-                    "publish"
+                    "Dataplane"
                 ],
                 "summary": "Publish a message",
                 "parameters": [
@@ -1085,6 +1055,9 @@
         },
         "apis.APIRestRespAllJetStreamConsumers": {
             "type": "object",
+            "required": [
+                "success"
+            ],
             "properties": {
                 "consumers": {
                     "description": "Consumers the set of consumer details mapped against consumer name",
@@ -1105,6 +1078,9 @@
         },
         "apis.APIRestRespAllJetStreams": {
             "type": "object",
+            "required": [
+                "success"
+            ],
             "properties": {
                 "error": {
                     "description": "Error are details in case of errors",
@@ -1125,6 +1101,9 @@
         },
         "apis.APIRestRespConsumerConfig": {
             "type": "object",
+            "required": [
+                "ack_wait"
+            ],
             "properties": {
                 "ack_wait": {
                     "description": "AckWait duration (ns) to wait for an ACK for the delivery of a message",
@@ -1162,6 +1141,18 @@
         },
         "apis.APIRestRespConsumerInfo": {
             "type": "object",
+            "required": [
+                "ack_floor",
+                "config",
+                "created",
+                "delivered",
+                "name",
+                "num_ack_pending",
+                "num_pending",
+                "num_redelivered",
+                "num_waiting",
+                "stream_name"
+            ],
             "properties": {
                 "ack_floor": {
                     "description": "AckFloor is the sequence number of the last received ACKed\n\nFor messages which failed to be ACKed (retry limit reached), the floor moves up to\ninclude these message sequence numbers indicating these messages will not be retried.",
@@ -1207,6 +1198,9 @@
         },
         "apis.APIRestRespOneJetStream": {
             "type": "object",
+            "required": [
+                "success"
+            ],
             "properties": {
                 "error": {
                     "description": "Error are details in case of errors",
@@ -1224,6 +1218,9 @@
         },
         "apis.APIRestRespOneJetStreamConsumer": {
             "type": "object",
+            "required": [
+                "success"
+            ],
             "properties": {
                 "consumer": {
                     "description": "Consumer the details regarding this consumer",
@@ -1241,6 +1238,10 @@
         },
         "apis.APIRestRespSequenceInfo": {
             "type": "object",
+            "required": [
+                "consumer_seq",
+                "stream_seq"
+            ],
             "properties": {
                 "consumer_seq": {
                     "description": "Consumer is consumer level sequence number",
@@ -1258,6 +1259,14 @@
         },
         "apis.APIRestRespStreamConfig": {
             "type": "object",
+            "required": [
+                "max_age",
+                "max_bytes",
+                "max_consumers",
+                "max_msgs",
+                "max_msgs_per_subject",
+                "name"
+            ],
             "properties": {
                 "description": {
                     "description": "Description is an optional description of the stream",
@@ -1302,6 +1311,11 @@
         },
         "apis.APIRestRespStreamInfo": {
             "type": "object",
+            "required": [
+                "config",
+                "created",
+                "state"
+            ],
             "properties": {
                 "config": {
                     "description": "Config is the stream config parameters",
@@ -1319,6 +1333,15 @@
         },
         "apis.APIRestRespStreamState": {
             "type": "object",
+            "required": [
+                "bytes",
+                "consumer_count",
+                "first_seq",
+                "first_ts",
+                "last_seq",
+                "last_ts",
+                "messages"
+            ],
             "properties": {
                 "bytes": {
                     "description": "Bytes is the number of message bytes in the stream",
@@ -1352,6 +1375,9 @@
         },
         "apis.ErrorDetail": {
             "type": "object",
+            "required": [
+                "code"
+            ],
             "properties": {
                 "code": {
                     "description": "Code is the response code",
@@ -1365,6 +1391,9 @@
         },
         "apis.StandardResponse": {
             "type": "object",
+            "required": [
+                "success"
+            ],
             "properties": {
                 "error": {
                     "description": "Error are details in case of errors",

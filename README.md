@@ -1,9 +1,5 @@
-# HTTP MQ - REST API
-
-[httpmq](https://github.com/alwitt/httpmq) REST OpenAPI documentation
-
 ---
-title: httpmq v0.1.0
+title: httpmq v0.1.1
 language_tabs:
   - shell: Shell
   - http: HTTP
@@ -23,7 +19,7 @@ generator: widdershins v4.0.1
 
 ---
 
-<h1 id="httpmq">httpmq v0.1.0</h1>
+<h1 id="httpmq">HTTP MQ REST API v0.1.1</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -1089,7 +1085,7 @@ This operation does not require authentication
 |consumers|object|false|none|Consumers the set of consumer details mapped against consumer name|
 |» **additionalProperties**|[apis.APIRestRespConsumerInfo](#schemaapis.apirestrespconsumerinfo)|false|none|none|
 |error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
-|success|boolean|false|none|Success indicates whether the request was successful|
+|success|boolean|true|none|Success indicates whether the request was successful|
 
 <h2 id="tocS_apis.APIRestRespAllJetStreams">apis.APIRestRespAllJetStreams</h2>
 
@@ -1168,7 +1164,7 @@ This operation does not require authentication
 |error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
 |streams|object|false|none|Streams the set of stream details mapped against its names|
 |» **additionalProperties**|[apis.APIRestRespStreamInfo](#schemaapis.apirestrespstreaminfo)|false|none|none|
-|success|boolean|false|none|Success indicates whether the request was successful|
+|success|boolean|true|none|Success indicates whether the request was successful|
 
 <h2 id="tocS_apis.APIRestRespConsumerConfig">apis.APIRestRespConsumerConfig</h2>
 
@@ -1195,7 +1191,7 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|ack_wait|integer|false|none|AckWait duration (ns) to wait for an ACK for the delivery of a message|
+|ack_wait|integer|true|none|AckWait duration (ns) to wait for an ACK for the delivery of a message|
 |deliver_group|string|false|none|DeliverGroup is the delivery group if this consumer uses delivery group<br /><br />A consumer using delivery group allows multiple clients to subscribe under the same consumer<br />and group name tuple. For subjects this consumer listens to, the messages will be shared<br />amongst the connected clients.|
 |deliver_subject|string|false|none|DeliverSubject subject this consumer is listening on|
 |filter_subject|string|false|none|FilterSubject sets the consumer to filter for subjects matching this NATs subject string<br /><br />See https://docs.nats.io/running-a-nats-service/nats_admin/jetstream_admin/naming|
@@ -1248,16 +1244,16 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|ack_floor|[apis.APIRestRespSequenceInfo](#schemaapis.apirestrespsequenceinfo)|false|none|AckFloor is the sequence number of the last received ACKed<br /><br />For messages which failed to be ACKed (retry limit reached), the floor moves up to<br />include these message sequence numbers indicating these messages will not be retried.|
-|config|[apis.APIRestRespConsumerConfig](#schemaapis.apirestrespconsumerconfig)|false|none|Config are the consumer config parameters|
-|created|string|false|none|Created is when this consumer was defined|
-|delivered|[apis.APIRestRespSequenceInfo](#schemaapis.apirestrespsequenceinfo)|false|none|Delivered is the sequence number of the last message delivered|
-|name|string|false|none|Name is the name of the consumer|
-|num_ack_pending|integer|false|none|NumAckPending is the number of ACK pending / messages in-flight|
-|num_pending|integer|false|none|NumPending is the number of message to be delivered for this consumer|
-|num_redelivered|integer|false|none|NumRedelivered is the number of messages redelivered|
-|num_waiting|integer|false|none|NumWaiting NATS JetStream does not clearly document this|
-|stream_name|string|false|none|Stream is the name of the stream|
+|ack_floor|[apis.APIRestRespSequenceInfo](#schemaapis.apirestrespsequenceinfo)|true|none|AckFloor is the sequence number of the last received ACKed<br /><br />For messages which failed to be ACKed (retry limit reached), the floor moves up to<br />include these message sequence numbers indicating these messages will not be retried.|
+|config|[apis.APIRestRespConsumerConfig](#schemaapis.apirestrespconsumerconfig)|true|none|Config are the consumer config parameters|
+|created|string|true|none|Created is when this consumer was defined|
+|delivered|[apis.APIRestRespSequenceInfo](#schemaapis.apirestrespsequenceinfo)|true|none|Delivered is the sequence number of the last message delivered|
+|name|string|true|none|Name is the name of the consumer|
+|num_ack_pending|integer|true|none|NumAckPending is the number of ACK pending / messages in-flight|
+|num_pending|integer|true|none|NumPending is the number of message to be delivered for this consumer|
+|num_redelivered|integer|true|none|NumRedelivered is the number of messages redelivered|
+|num_waiting|integer|true|none|NumWaiting NATS JetStream does not clearly document this|
+|stream_name|string|true|none|Stream is the name of the stream|
 
 <h2 id="tocS_apis.APIRestRespOneJetStream">apis.APIRestRespOneJetStream</h2>
 
@@ -1308,7 +1304,7 @@ This operation does not require authentication
 |---|---|---|---|---|
 |error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
 |stream|[apis.APIRestRespStreamInfo](#schemaapis.apirestrespstreaminfo)|false|none|Stream the details for this stream|
-|success|boolean|false|none|Success indicates whether the request was successful|
+|success|boolean|true|none|Success indicates whether the request was successful|
 
 <h2 id="tocS_apis.APIRestRespOneJetStreamConsumer">apis.APIRestRespOneJetStreamConsumer</h2>
 
@@ -1363,7 +1359,7 @@ This operation does not require authentication
 |---|---|---|---|---|
 |consumer|[apis.APIRestRespConsumerInfo](#schemaapis.apirestrespconsumerinfo)|false|none|Consumer the details regarding this consumer|
 |error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
-|success|boolean|false|none|Success indicates whether the request was successful|
+|success|boolean|true|none|Success indicates whether the request was successful|
 
 <h2 id="tocS_apis.APIRestRespSequenceInfo">apis.APIRestRespSequenceInfo</h2>
 
@@ -1385,9 +1381,9 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|consumer_seq|integer|false|none|Consumer is consumer level sequence number|
+|consumer_seq|integer|true|none|Consumer is consumer level sequence number|
 |last_active|string|false|none|Last timestamp when these values updated|
-|stream_seq|integer|false|none|Stream is stream level sequence number|
+|stream_seq|integer|true|none|Stream is stream level sequence number|
 
 <h2 id="tocS_apis.APIRestRespStreamConfig">apis.APIRestRespStreamConfig</h2>
 
@@ -1418,13 +1414,13 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |description|string|false|none|Description is an optional description of the stream|
-|max_age|integer|false|none|MaxBytes is the max duration (ns) the stream will store a message<br /><br />Messages breaching the limit will be removed.|
-|max_bytes|integer|false|none|MaxBytes is the max number of message bytes the stream will store.<br /><br />Oldest messages are removed once limit breached.|
-|max_consumers|integer|false|none|MaxConsumers is the max number of consumers allowed on the stream|
+|max_age|integer|true|none|MaxBytes is the max duration (ns) the stream will store a message<br /><br />Messages breaching the limit will be removed.|
+|max_bytes|integer|true|none|MaxBytes is the max number of message bytes the stream will store.<br /><br />Oldest messages are removed once limit breached.|
+|max_consumers|integer|true|none|MaxConsumers is the max number of consumers allowed on the stream|
 |max_msg_size|integer|false|none|MaxMsgSize is the max size of a message allowed in this stream|
-|max_msgs|integer|false|none|MaxMsgs is the max number of messages the stream will store.<br /><br />Oldest messages are removed once limit breached.|
-|max_msgs_per_subject|integer|false|none|MaxMsgsPerSubject is the maximum number of subjects allowed on this stream|
-|name|string|false|none|Name is the stream name|
+|max_msgs|integer|true|none|MaxMsgs is the max number of messages the stream will store.<br /><br />Oldest messages are removed once limit breached.|
+|max_msgs_per_subject|integer|true|none|MaxMsgsPerSubject is the maximum number of subjects allowed on this stream|
+|name|string|true|none|Name is the stream name|
 |subjects|[string]|false|none|Subjects is the list subjects this stream is listening on|
 
 <h2 id="tocS_apis.APIRestRespStreamInfo">apis.APIRestRespStreamInfo</h2>
@@ -1467,9 +1463,9 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|config|[apis.APIRestRespStreamConfig](#schemaapis.apirestrespstreamconfig)|false|none|Config is the stream config parameters|
-|created|string|false|none|Created is the stream creation timestamp|
-|state|[apis.APIRestRespStreamState](#schemaapis.apirestrespstreamstate)|false|none|State is the stream current state|
+|config|[apis.APIRestRespStreamConfig](#schemaapis.apirestrespstreamconfig)|true|none|Config is the stream config parameters|
+|created|string|true|none|Created is the stream creation timestamp|
+|state|[apis.APIRestRespStreamState](#schemaapis.apirestrespstreamstate)|true|none|State is the stream current state|
 
 <h2 id="tocS_apis.APIRestRespStreamState">apis.APIRestRespStreamState</h2>
 
@@ -1495,13 +1491,13 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|bytes|integer|false|none|Bytes is the number of message bytes in the stream|
-|consumer_count|integer|false|none|Consumers number of consumers on the stream|
-|first_seq|integer|false|none|FirstSeq is the oldest message sequence number on the stream|
-|first_ts|string|false|none|FirstTime is the oldest message timestamp on the stream|
-|last_seq|integer|false|none|LastSeq is the newest message sequence number on the stream|
-|last_ts|string|false|none|LastTime is the newest message timestamp on the stream|
-|messages|integer|false|none|Msgs is the number of messages in the stream|
+|bytes|integer|true|none|Bytes is the number of message bytes in the stream|
+|consumer_count|integer|true|none|Consumers number of consumers on the stream|
+|first_seq|integer|true|none|FirstSeq is the oldest message sequence number on the stream|
+|first_ts|string|true|none|FirstTime is the oldest message timestamp on the stream|
+|last_seq|integer|true|none|LastSeq is the newest message sequence number on the stream|
+|last_ts|string|true|none|LastTime is the newest message timestamp on the stream|
+|messages|integer|true|none|Msgs is the number of messages in the stream|
 
 <h2 id="tocS_apis.ErrorDetail">apis.ErrorDetail</h2>
 
@@ -1522,7 +1518,7 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|code|integer|false|none|Code is the response code|
+|code|integer|true|none|Code is the response code|
 |message|string|false|none|Msg is an optional descriptive message|
 
 <h2 id="tocS_apis.StandardResponse">apis.StandardResponse</h2>
@@ -1548,7 +1544,7 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
-|success|boolean|false|none|Success indicates whether the request was successful|
+|success|boolean|true|none|Success indicates whether the request was successful|
 
 <h2 id="tocS_dataplane.AckSeqNum">dataplane.AckSeqNum</h2>
 

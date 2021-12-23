@@ -24,6 +24,8 @@ definitions:
       success:
         description: Success indicates whether the request was successful
         type: boolean
+    required:
+    - success
     type: object
   apis.APIRestRespAllJetStreams:
     properties:
@@ -38,6 +40,8 @@ definitions:
       success:
         description: Success indicates whether the request was successful
         type: boolean
+    required:
+    - success
     type: object
   apis.APIRestRespConsumerConfig:
     properties:
@@ -76,6 +80,8 @@ definitions:
       notes:
         description: Description an optional description of the consumer
         type: string
+    required:
+    - ack_wait
     type: object
   apis.APIRestRespConsumerInfo:
     properties:
@@ -114,6 +120,17 @@ definitions:
       stream_name:
         description: Stream is the name of the stream
         type: string
+    required:
+    - ack_floor
+    - config
+    - created
+    - delivered
+    - name
+    - num_ack_pending
+    - num_pending
+    - num_redelivered
+    - num_waiting
+    - stream_name
     type: object
   apis.APIRestRespOneJetStream:
     properties:
@@ -126,6 +143,8 @@ definitions:
       success:
         description: Success indicates whether the request was successful
         type: boolean
+    required:
+    - success
     type: object
   apis.APIRestRespOneJetStreamConsumer:
     properties:
@@ -138,6 +157,8 @@ definitions:
       success:
         description: Success indicates whether the request was successful
         type: boolean
+    required:
+    - success
     type: object
   apis.APIRestRespSequenceInfo:
     properties:
@@ -150,6 +171,9 @@ definitions:
       stream_seq:
         description: Stream is stream level sequence number
         type: integer
+    required:
+    - consumer_seq
+    - stream_seq
     type: object
   apis.APIRestRespStreamConfig:
     properties:
@@ -192,6 +216,13 @@ definitions:
         items:
           type: string
         type: array
+    required:
+    - max_age
+    - max_bytes
+    - max_consumers
+    - max_msgs
+    - max_msgs_per_subject
+    - name
     type: object
   apis.APIRestRespStreamInfo:
     properties:
@@ -204,6 +235,10 @@ definitions:
       state:
         $ref: '#/definitions/apis.APIRestRespStreamState'
         description: State is the stream current state
+    required:
+    - config
+    - created
+    - state
     type: object
   apis.APIRestRespStreamState:
     properties:
@@ -228,6 +263,14 @@ definitions:
       messages:
         description: Msgs is the number of messages in the stream
         type: integer
+    required:
+    - bytes
+    - consumer_count
+    - first_seq
+    - first_ts
+    - last_seq
+    - last_ts
+    - messages
     type: object
   apis.ErrorDetail:
     properties:
@@ -237,6 +280,8 @@ definitions:
       message:
         description: Msg is an optional descriptive message
         type: string
+    required:
+    - code
     type: object
   apis.StandardResponse:
     properties:
@@ -246,6 +291,8 @@ definitions:
       success:
         description: Success indicates whether the request was successful
         type: boolean
+    required:
+    - success
     type: object
   dataplane.AckSeqNum:
     properties:
@@ -378,7 +425,7 @@ info:
   contact: {}
   description: HTTP/2 based message broker built around NATS JetStream
   title: httpmq
-  version: v0.1.0
+  version: v0.1.1
 paths:
   /alive:
     get:
@@ -405,8 +452,6 @@ paths:
       summary: For liveness check
       tags:
       - Management
-      - get
-      - health
   /ready:
     get:
       description: Will return success if REST API module is ready for use
@@ -432,8 +477,6 @@ paths:
       summary: For readiness check
       tags:
       - Management
-      - get
-      - health
   /v1/admin/stream:
     get:
       description: Query for the details of all streams
@@ -478,8 +521,6 @@ paths:
       summary: Query for info on all streams
       tags:
       - Management
-      - get
-      - stream
     post:
       consumes:
       - application/json
@@ -525,8 +566,6 @@ paths:
       summary: Define new stream
       tags:
       - Management
-      - post
-      - stream
   /v1/admin/stream/{streamName}:
     delete:
       description: Delete a stream
@@ -570,8 +609,6 @@ paths:
       summary: Delete a stream
       tags:
       - Management
-      - delete
-      - stream
     get:
       description: Query for the details of one stream
       parameters:
@@ -614,8 +651,6 @@ paths:
       summary: Query for info on one stream
       tags:
       - Management
-      - get
-      - stream
   /v1/admin/stream/{streamName}/consumer:
     get:
       description: Query for the details of all consumers of a stream
@@ -659,8 +694,6 @@ paths:
       summary: Get all consumers of a stream
       tags:
       - Management
-      - get
-      - consumer
     post:
       consumes:
       - application/json
@@ -711,8 +744,6 @@ paths:
       summary: Create a consumer on a stream
       tags:
       - Management
-      - post
-      - consumer
   /v1/admin/stream/{streamName}/consumer/{consumerName}:
     delete:
       description: Delete one consumer of a stream
@@ -761,8 +792,6 @@ paths:
       summary: Delete one consumer of a stream
       tags:
       - Management
-      - delete
-      - consumer
     get:
       description: Query for the details of a consumer on a stream
       parameters:
@@ -810,8 +839,6 @@ paths:
       summary: Get one consumer of a stream
       tags:
       - Management
-      - get
-      - consumer
   /v1/admin/stream/{streamName}/limit:
     put:
       consumes:
@@ -863,8 +890,6 @@ paths:
       summary: Change limits a stream
       tags:
       - Management
-      - put
-      - stream
   /v1/admin/stream/{streamName}/subject:
     put:
       consumes:
@@ -916,8 +941,6 @@ paths:
       summary: Change subjects of a stream
       tags:
       - Management
-      - put
-      - stream
   /v1/data/stream/{streamName}/consumer/{consumerName}:
     get:
       description: Establish a JetStream pull subscribe session for a client. This
@@ -980,8 +1003,6 @@ paths:
       summary: Establish a pull subscribe session
       tags:
       - Dataplane
-      - get
-      - subscribe
   /v1/data/stream/{streamName}/consumer/{consumerName}/ack:
     post:
       consumes:
@@ -1038,8 +1059,6 @@ paths:
       summary: Handle ACK for message
       tags:
       - Dataplane
-      - post
-      - subscribe
   /v1/data/subject/{subjectName}:
     post:
       consumes:
@@ -1091,6 +1110,4 @@ paths:
       summary: Publish a message
       tags:
       - Dataplane
-      - post
-      - publish
 swagger: "2.0"
