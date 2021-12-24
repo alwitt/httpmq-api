@@ -11,7 +11,8 @@ build-go: .prepare ## Generate golang client
 	@docker run --rm \
 	  --mount type=bind,source=$(BASE_DIR)/spec,target=/input,readonly \
 	  --mount type=bind,source=$(BASE_DIR)/tmp,target=/output \
-	  openapitools/openapi-generator-cli:v5.3.1 generate -i /input/swagger.yaml -g go -o /output/go
+	  openapitools/openapi-generator-cli:v5.3.1 \
+	    generate -i /input/swagger.yaml -g go -o /output/go --package-name api
 	@echo
 	@echo '!!! IMPORTANT: The generate Golang SDK at $(BASE_DIR)/tmp/go is owned by root !!!'
 	@echo
