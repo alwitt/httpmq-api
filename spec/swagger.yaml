@@ -425,7 +425,7 @@ info:
   contact: {}
   description: HTTP/2 based message broker built around NATS JetStream
   title: httpmq
-  version: v0.1.1
+  version: v0.1.2-rc.1
 paths:
   /alive:
     get:
@@ -480,13 +480,6 @@ paths:
   /v1/admin/stream:
     get:
       description: Query for the details of all streams
-      parameters:
-      - description: JetStream stream setting
-        in: body
-        name: setting
-        required: true
-        schema:
-          $ref: '#/definitions/management.JSStreamParam'
       produces:
       - application/json
       responses:

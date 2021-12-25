@@ -4,7 +4,7 @@
         "description": "HTTP/2 based message broker built around NATS JetStream",
         "title": "httpmq",
         "contact": {},
-        "version": "v0.1.1"
+        "version": "v0.1.2-rc.1"
     },
     "host": "localhost:3000",
     "basePath": "/",
@@ -95,17 +95,6 @@
                     "Management"
                 ],
                 "summary": "Query for info on all streams",
-                "parameters": [
-                    {
-                        "description": "JetStream stream setting",
-                        "name": "setting",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/management.JSStreamParam"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "success",
