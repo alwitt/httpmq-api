@@ -1,5 +1,5 @@
 ---
-title: httpmq v0.1.2-rc.1
+title: httpmq v0.1.2
 language_tabs:
   - shell: Shell
   - http: HTTP
@@ -19,7 +19,7 @@ generator: widdershins v4.0.1
 
 ---
 
-<h1 id="httpmq">HTTP MQ REST API v0.1.2-rc.1</h1>
+<h1 id="httpmq">HTTP MQ REST API v0.1.2</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -811,10 +811,20 @@ Establish a JetStream pull subscribe session for a client. This is a long lived
 
 ```json
 {
+  "b64_msg": [
+    0
+  ],
+  "consumer": "string",
   "error": {
     "code": 0,
     "message": "string"
   },
+  "sequence": {
+    "consumer": 0,
+    "stream": 0
+  },
+  "stream": "string",
+  "subject": "string",
   "success": true
 }
 ```
@@ -823,7 +833,7 @@ Establish a JetStream pull subscribe session for a client. This is a long lived
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.APIRestRespDataMessage](#schemaapis.apirestrespdatamessage)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
@@ -1232,6 +1242,46 @@ This operation does not require authentication
 |num_waiting|integer|true|none|NumWaiting NATS JetStream does not clearly document this|
 |stream_name|string|true|none|Stream is the name of the stream|
 
+<h2 id="tocS_apis.APIRestRespDataMessage">apis.APIRestRespDataMessage</h2>
+
+<a id="schemaapis.apirestrespdatamessage"></a>
+<a id="schema_apis.APIRestRespDataMessage"></a>
+<a id="tocSapis.apirestrespdatamessage"></a>
+<a id="tocsapis.apirestrespdatamessage"></a>
+
+```json
+{
+  "b64_msg": [
+    0
+  ],
+  "consumer": "string",
+  "error": {
+    "code": 0,
+    "message": "string"
+  },
+  "sequence": {
+    "consumer": 0,
+    "stream": 0
+  },
+  "stream": "string",
+  "subject": "string",
+  "success": true
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|b64_msg|[integer]|true|none|Message is the message body|
+|consumer|string|true|none|Consumer is the name of the consumer|
+|error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
+|sequence|[dataplane.MsgToDeliverSeq](#schemadataplane.msgtodeliverseq)|true|none|Sequence is the sequence numbers for this JetStream message|
+|stream|string|true|none|Stream is the name of the stream|
+|subject|string|true|none|Subject is the name of the subject / subject filter|
+|success|boolean|true|none|Success indicates whether the request was successful|
+
 <h2 id="tocS_apis.APIRestRespOneJetStream">apis.APIRestRespOneJetStream</h2>
 
 <a id="schemaapis.apirestresponejetstream"></a>
@@ -1544,6 +1594,28 @@ This operation does not require authentication
 |---|---|---|---|---|
 |consumer|integer|true|none|Consumer is the JetStream message sequence number for this consumer|
 |stream|integer|true|none|Stream is the JetStream message sequence number for this stream|
+
+<h2 id="tocS_dataplane.MsgToDeliverSeq">dataplane.MsgToDeliverSeq</h2>
+
+<a id="schemadataplane.msgtodeliverseq"></a>
+<a id="schema_dataplane.MsgToDeliverSeq"></a>
+<a id="tocSdataplane.msgtodeliverseq"></a>
+<a id="tocsdataplane.msgtodeliverseq"></a>
+
+```json
+{
+  "consumer": 0,
+  "stream": 0
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|consumer|integer|false|none|Consumer is the message sequence number for this consumer|
+|stream|integer|false|none|Stream is the message sequence number within the stream|
 
 <h2 id="tocS_management.JSStreamLimits">management.JSStreamLimits</h2>
 

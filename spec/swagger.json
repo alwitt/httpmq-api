@@ -4,7 +4,7 @@
         "description": "HTTP/2 based message broker built around NATS JetStream",
         "title": "httpmq",
         "contact": {},
-        "version": "v0.1.2-rc.1"
+        "version": "v0.1.2"
     },
     "host": "localhost:3000",
     "basePath": "/",
@@ -822,7 +822,7 @@
                     "200": {
                         "description": "success",
                         "schema": {
-                            "$ref": "#/definitions/apis.StandardResponse"
+                            "$ref": "#/definitions/apis.APIRestRespDataMessage"
                         },
                         "headers": {
                             "Httpmq-Request-ID": {
@@ -1185,6 +1185,50 @@
                 }
             }
         },
+        "apis.APIRestRespDataMessage": {
+            "type": "object",
+            "required": [
+                "b64_msg",
+                "consumer",
+                "sequence",
+                "stream",
+                "subject",
+                "success"
+            ],
+            "properties": {
+                "b64_msg": {
+                    "description": "Message is the message body",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "consumer": {
+                    "description": "Consumer is the name of the consumer",
+                    "type": "string"
+                },
+                "error": {
+                    "description": "Error are details in case of errors",
+                    "$ref": "#/definitions/apis.ErrorDetail"
+                },
+                "sequence": {
+                    "description": "Sequence is the sequence numbers for this JetStream message",
+                    "$ref": "#/definitions/dataplane.MsgToDeliverSeq"
+                },
+                "stream": {
+                    "description": "Stream is the name of the stream",
+                    "type": "string"
+                },
+                "subject": {
+                    "description": "Subject is the name of the subject / subject filter",
+                    "type": "string"
+                },
+                "success": {
+                    "description": "Success indicates whether the request was successful",
+                    "type": "boolean"
+                }
+            }
+        },
         "apis.APIRestRespOneJetStream": {
             "type": "object",
             "required": [
@@ -1407,6 +1451,19 @@
                 },
                 "stream": {
                     "description": "Stream is the JetStream message sequence number for this stream",
+                    "type": "integer"
+                }
+            }
+        },
+        "dataplane.MsgToDeliverSeq": {
+            "type": "object",
+            "properties": {
+                "consumer": {
+                    "description": "Consumer is the message sequence number for this consumer",
+                    "type": "integer"
+                },
+                "stream": {
+                    "description": "Stream is the message sequence number within the stream",
                     "type": "integer"
                 }
             }

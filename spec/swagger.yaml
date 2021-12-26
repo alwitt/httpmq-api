@@ -132,6 +132,39 @@ definitions:
     - num_waiting
     - stream_name
     type: object
+  apis.APIRestRespDataMessage:
+    properties:
+      b64_msg:
+        description: Message is the message body
+        items:
+          type: integer
+        type: array
+      consumer:
+        description: Consumer is the name of the consumer
+        type: string
+      error:
+        $ref: '#/definitions/apis.ErrorDetail'
+        description: Error are details in case of errors
+      sequence:
+        $ref: '#/definitions/dataplane.MsgToDeliverSeq'
+        description: Sequence is the sequence numbers for this JetStream message
+      stream:
+        description: Stream is the name of the stream
+        type: string
+      subject:
+        description: Subject is the name of the subject / subject filter
+        type: string
+      success:
+        description: Success indicates whether the request was successful
+        type: boolean
+    required:
+    - b64_msg
+    - consumer
+    - sequence
+    - stream
+    - subject
+    - success
+    type: object
   apis.APIRestRespOneJetStream:
     properties:
       error:
@@ -306,6 +339,15 @@ definitions:
     - consumer
     - stream
     type: object
+  dataplane.MsgToDeliverSeq:
+    properties:
+      consumer:
+        description: Consumer is the message sequence number for this consumer
+        type: integer
+      stream:
+        description: Stream is the message sequence number within the stream
+        type: integer
+    type: object
   management.JSStreamLimits:
     properties:
       max_age:
@@ -425,7 +467,7 @@ info:
   contact: {}
   description: HTTP/2 based message broker built around NATS JetStream
   title: httpmq
-  version: v0.1.2-rc.1
+  version: v0.1.2
 paths:
   /alive:
     get:
@@ -972,7 +1014,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/apis.APIRestRespDataMessage'
         "400":
           description: error
           headers:
