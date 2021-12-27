@@ -136,9 +136,9 @@ definitions:
     properties:
       b64_msg:
         description: Message is the message body
-        items:
-          type: integer
-        type: array
+        example: SGVsbG8gV29ybGQK
+        format: base64
+        type: string
       consumer:
         description: Consumer is the name of the consumer
         type: string
@@ -347,6 +347,9 @@ definitions:
       stream:
         description: Stream is the message sequence number within the stream
         type: integer
+    required:
+    - consumer
+    - stream
     type: object
   management.JSStreamLimits:
     properties:
@@ -467,11 +470,11 @@ info:
   contact: {}
   description: HTTP/2 based message broker built around NATS JetStream
   title: httpmq
-  version: v0.1.2
+  version: v0.1.4
 paths:
-  /alive:
+  /v1/admin/alive:
     get:
-      description: Will return success to indicate REST API module is live
+      description: Will return success to indicate management REST API module is live
       produces:
       - application/json
       responses:
@@ -491,12 +494,13 @@ paths:
           description: error
           schema:
             $ref: '#/definitions/apis.StandardResponse'
-      summary: For liveness check
+      summary: For management REST API liveness check
       tags:
       - Management
-  /ready:
+  /v1/admin/ready:
     get:
-      description: Will return success if REST API module is ready for use
+      description: Will return success if management REST API module is ready for
+        use
       produces:
       - application/json
       responses:
@@ -516,12 +520,17 @@ paths:
           description: error
           schema:
             $ref: '#/definitions/apis.StandardResponse'
-      summary: For readiness check
+      summary: For management REST API readiness check
       tags:
       - Management
   /v1/admin/stream:
     get:
       description: Query for the details of all streams
+      parameters:
+      - description: User provided request ID to match against logs
+        in: header
+        name: Httpmq-Request-ID
+        type: string
       produces:
       - application/json
       responses:
@@ -561,6 +570,10 @@ paths:
       - application/json
       description: Define new JetStream stream
       parameters:
+      - description: User provided request ID to match against logs
+        in: header
+        name: Httpmq-Request-ID
+        type: string
       - description: JetStream stream setting
         in: body
         name: setting
@@ -605,6 +618,10 @@ paths:
     delete:
       description: Delete a stream
       parameters:
+      - description: User provided request ID to match against logs
+        in: header
+        name: Httpmq-Request-ID
+        type: string
       - description: JetStream stream name
         in: path
         name: streamName
@@ -647,6 +664,10 @@ paths:
     get:
       description: Query for the details of one stream
       parameters:
+      - description: User provided request ID to match against logs
+        in: header
+        name: Httpmq-Request-ID
+        type: string
       - description: JetStream stream name
         in: path
         name: streamName
@@ -690,6 +711,10 @@ paths:
     get:
       description: Query for the details of all consumers of a stream
       parameters:
+      - description: User provided request ID to match against logs
+        in: header
+        name: Httpmq-Request-ID
+        type: string
       - description: JetStream stream name
         in: path
         name: streamName
@@ -734,6 +759,10 @@ paths:
       - application/json
       description: Create a new consumer on a stream. The stream must already be defined.
       parameters:
+      - description: User provided request ID to match against logs
+        in: header
+        name: Httpmq-Request-ID
+        type: string
       - description: JetStream stream name
         in: path
         name: streamName
@@ -783,6 +812,10 @@ paths:
     delete:
       description: Delete one consumer of a stream
       parameters:
+      - description: User provided request ID to match against logs
+        in: header
+        name: Httpmq-Request-ID
+        type: string
       - description: JetStream stream name
         in: path
         name: streamName
@@ -830,6 +863,10 @@ paths:
     get:
       description: Query for the details of a consumer on a stream
       parameters:
+      - description: User provided request ID to match against logs
+        in: header
+        name: Httpmq-Request-ID
+        type: string
       - description: JetStream stream name
         in: path
         name: streamName
@@ -880,6 +917,10 @@ paths:
       - application/json
       description: Change the data retention limits of a stream
       parameters:
+      - description: User provided request ID to match against logs
+        in: header
+        name: Httpmq-Request-ID
+        type: string
       - description: JetStream stream name
         in: path
         name: streamName
@@ -931,6 +972,10 @@ paths:
       - application/json
       description: Change the list of subjects of interest for a stream
       parameters:
+      - description: User provided request ID to match against logs
+        in: header
+        name: Httpmq-Request-ID
+        type: string
       - description: JetStream stream name
         in: path
         name: streamName
@@ -976,11 +1021,65 @@ paths:
       summary: Change subjects of a stream
       tags:
       - Management
+  /v1/data/alive:
+    get:
+      description: Will return success to indicate dataplane REST API module is live
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "400":
+          description: error
+          schema:
+            type: string
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: For dataplane REST API liveness check
+      tags:
+      - Dataplane
+  /v1/data/ready:
+    get:
+      description: Will return success if dataplane REST API module is ready for use
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+        "400":
+          description: error
+          schema:
+            type: string
+        "404":
+          description: error
+          schema:
+            type: string
+        "500":
+          description: error
+          schema:
+            $ref: '#/definitions/apis.StandardResponse'
+      summary: For dataplane REST API readiness check
+      tags:
+      - Dataplane
   /v1/data/stream/{streamName}/consumer/{consumerName}:
     get:
       description: Establish a JetStream pull subscribe session for a client. This
         is a long lived
       parameters:
+      - description: User provided request ID to match against logs
+        in: header
+        name: Httpmq-Request-ID
+        type: string
       - description: JetStream stream name
         in: path
         name: streamName
@@ -1044,6 +1143,10 @@ paths:
       - application/json
       description: Process JetStream message ACK for a stream / consumer
       parameters:
+      - description: User provided request ID to match against logs
+        in: header
+        name: Httpmq-Request-ID
+        type: string
       - description: JetStream stream name
         in: path
         name: streamName
@@ -1100,6 +1203,10 @@ paths:
       - text/plain
       description: Publish a Base64 encoded message to a JetStream subject
       parameters:
+      - description: User provided request ID to match against logs
+        in: header
+        name: Httpmq-Request-ID
+        type: string
       - description: JetStream subject to publish under
         in: path
         name: subjectName

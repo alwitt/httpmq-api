@@ -4,21 +4,21 @@
         "description": "HTTP/2 based message broker built around NATS JetStream",
         "title": "httpmq",
         "contact": {},
-        "version": "v0.1.2"
+        "version": "v0.1.4"
     },
     "host": "localhost:3000",
     "basePath": "/",
     "paths": {
-        "/alive": {
+        "/v1/admin/alive": {
             "get": {
-                "description": "Will return success to indicate REST API module is live",
+                "description": "Will return success to indicate management REST API module is live",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Management"
                 ],
-                "summary": "For liveness check",
+                "summary": "For management REST API liveness check",
                 "responses": {
                     "200": {
                         "description": "success",
@@ -47,16 +47,16 @@
                 }
             }
         },
-        "/ready": {
+        "/v1/admin/ready": {
             "get": {
-                "description": "Will return success if REST API module is ready for use",
+                "description": "Will return success if management REST API module is ready for use",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Management"
                 ],
-                "summary": "For readiness check",
+                "summary": "For management REST API readiness check",
                 "responses": {
                     "200": {
                         "description": "success",
@@ -95,6 +95,14 @@
                     "Management"
                 ],
                 "summary": "Query for info on all streams",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User provided request ID to match against logs",
+                        "name": "Httpmq-Request-ID",
+                        "in": "header"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "success",
@@ -153,6 +161,12 @@
                 ],
                 "summary": "Define new stream",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User provided request ID to match against logs",
+                        "name": "Httpmq-Request-ID",
+                        "in": "header"
+                    },
                     {
                         "description": "JetStream stream setting",
                         "name": "setting",
@@ -222,6 +236,12 @@
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "User provided request ID to match against logs",
+                        "name": "Httpmq-Request-ID",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
                         "description": "JetStream stream name",
                         "name": "streamName",
                         "in": "path",
@@ -283,6 +303,12 @@
                 ],
                 "summary": "Delete a stream",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User provided request ID to match against logs",
+                        "name": "Httpmq-Request-ID",
+                        "in": "header"
+                    },
                     {
                         "type": "string",
                         "description": "JetStream stream name",
@@ -350,6 +376,12 @@
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "User provided request ID to match against logs",
+                        "name": "Httpmq-Request-ID",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
                         "description": "JetStream stream name",
                         "name": "streamName",
                         "in": "path",
@@ -414,6 +446,12 @@
                 ],
                 "summary": "Create a consumer on a stream",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User provided request ID to match against logs",
+                        "name": "Httpmq-Request-ID",
+                        "in": "header"
+                    },
                     {
                         "type": "string",
                         "description": "JetStream stream name",
@@ -490,6 +528,12 @@
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "User provided request ID to match against logs",
+                        "name": "Httpmq-Request-ID",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
                         "description": "JetStream stream name",
                         "name": "streamName",
                         "in": "path",
@@ -558,6 +602,12 @@
                 ],
                 "summary": "Delete one consumer of a stream",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User provided request ID to match against logs",
+                        "name": "Httpmq-Request-ID",
+                        "in": "header"
+                    },
                     {
                         "type": "string",
                         "description": "JetStream stream name",
@@ -633,6 +683,12 @@
                 ],
                 "summary": "Change limits a stream",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User provided request ID to match against logs",
+                        "name": "Httpmq-Request-ID",
+                        "in": "header"
+                    },
                     {
                         "type": "string",
                         "description": "JetStream stream name",
@@ -712,6 +768,12 @@
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "User provided request ID to match against logs",
+                        "name": "Httpmq-Request-ID",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
                         "description": "JetStream stream name",
                         "name": "streamName",
                         "in": "path",
@@ -773,6 +835,82 @@
                 }
             }
         },
+        "/v1/data/alive": {
+            "get": {
+                "description": "Will return success to indicate dataplane REST API module is live",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dataplane"
+                ],
+                "summary": "For dataplane REST API liveness check",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/data/ready": {
+            "get": {
+                "description": "Will return success if dataplane REST API module is ready for use",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dataplane"
+                ],
+                "summary": "For dataplane REST API readiness check",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/apis.StandardResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/data/stream/{streamName}/consumer/{consumerName}": {
             "get": {
                 "description": "Establish a JetStream pull subscribe session for a client. This is a long lived",
@@ -784,6 +922,12 @@
                 ],
                 "summary": "Establish a pull subscribe session",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User provided request ID to match against logs",
+                        "name": "Httpmq-Request-ID",
+                        "in": "header"
+                    },
                     {
                         "type": "string",
                         "description": "JetStream stream name",
@@ -880,6 +1024,12 @@
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "User provided request ID to match against logs",
+                        "name": "Httpmq-Request-ID",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
                         "description": "JetStream stream name",
                         "name": "streamName",
                         "in": "path",
@@ -962,6 +1112,12 @@
                 ],
                 "summary": "Publish a message",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User provided request ID to match against logs",
+                        "name": "Httpmq-Request-ID",
+                        "in": "header"
+                    },
                     {
                         "type": "string",
                         "description": "JetStream subject to publish under",
@@ -1198,10 +1354,9 @@
             "properties": {
                 "b64_msg": {
                     "description": "Message is the message body",
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
+                    "type": "string",
+                    "format": "base64",
+                    "example": "SGVsbG8gV29ybGQK"
                 },
                 "consumer": {
                     "description": "Consumer is the name of the consumer",
@@ -1457,6 +1612,10 @@
         },
         "dataplane.MsgToDeliverSeq": {
             "type": "object",
+            "required": [
+                "consumer",
+                "stream"
+            ],
             "properties": {
                 "consumer": {
                     "description": "Consumer is the message sequence number for this consumer",

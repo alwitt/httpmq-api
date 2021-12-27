@@ -1,5 +1,5 @@
 ---
-title: httpmq v0.1.2
+title: httpmq v0.1.4
 language_tabs:
   - shell: Shell
   - http: HTTP
@@ -19,7 +19,7 @@ generator: widdershins v4.0.1
 
 ---
 
-<h1 id="httpmq">HTTP MQ REST API v0.1.2</h1>
+<h1 id="httpmq">HTTP MQ REST API v0.1.4</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -31,11 +31,11 @@ Base URLs:
 
 <h1 id="httpmq-management">Management</h1>
 
-## For liveness check
+## For management REST API liveness check
 
-`GET /alive`
+`GET /v1/admin/alive`
 
-Will return success to indicate REST API module is live
+Will return success to indicate management REST API module is live
 
 > Example responses
 
@@ -51,7 +51,7 @@ Will return success to indicate REST API module is live
 }
 ```
 
-<h3 id="for-liveness-check-responses">Responses</h3>
+<h3 id="for-management-rest-api-liveness-check-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -64,11 +64,11 @@ Will return success to indicate REST API module is live
 This operation does not require authentication
 </aside>
 
-## For readiness check
+## For management REST API readiness check
 
-`GET /ready`
+`GET /v1/admin/ready`
 
-Will return success if REST API module is ready for use
+Will return success if management REST API module is ready for use
 
 > Example responses
 
@@ -84,7 +84,7 @@ Will return success if REST API module is ready for use
 }
 ```
 
-<h3 id="for-readiness-check-responses">Responses</h3>
+<h3 id="for-management-rest-api-readiness-check-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -102,6 +102,12 @@ This operation does not require authentication
 `GET /v1/admin/stream`
 
 Query for the details of all streams
+
+<h3 id="query-for-info-on-all-streams-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|Httpmq-Request-ID|header|string|false|User provided request ID to match against logs|
 
 > Example responses
 
@@ -217,6 +223,7 @@ Define new JetStream stream
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
+|Httpmq-Request-ID|header|string|false|User provided request ID to match against logs|
 |body|body|[management.JSStreamParam](#schemamanagement.jsstreamparam)|true|JetStream stream setting|
 
 > Example responses
@@ -264,6 +271,7 @@ Delete a stream
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
+|Httpmq-Request-ID|header|string|false|User provided request ID to match against logs|
 |streamName|path|string|true|JetStream stream name|
 
 > Example responses
@@ -311,6 +319,7 @@ Query for the details of one stream
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
+|Httpmq-Request-ID|header|string|false|User provided request ID to match against logs|
 |streamName|path|string|true|JetStream stream name|
 
 > Example responses
@@ -383,6 +392,7 @@ Query for the details of all consumers of a stream
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
+|Httpmq-Request-ID|header|string|false|User provided request ID to match against logs|
 |streamName|path|string|true|JetStream stream name|
 
 > Example responses
@@ -505,6 +515,7 @@ Create a new consumer on a stream. The stream must already be defined.
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
+|Httpmq-Request-ID|header|string|false|User provided request ID to match against logs|
 |streamName|path|string|true|JetStream stream name|
 |body|body|[management.JetStreamConsumerParam](#schemamanagement.jetstreamconsumerparam)|true|Consumer parameters|
 
@@ -553,6 +564,7 @@ Delete one consumer of a stream
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
+|Httpmq-Request-ID|header|string|false|User provided request ID to match against logs|
 |streamName|path|string|true|JetStream stream name|
 |consumerName|path|string|true|JetStream consumer name|
 
@@ -601,6 +613,7 @@ Query for the details of a consumer on a stream
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
+|Httpmq-Request-ID|header|string|false|User provided request ID to match against logs|
 |streamName|path|string|true|JetStream stream name|
 |consumerName|path|string|true|JetStream consumer name|
 
@@ -691,6 +704,7 @@ Change the data retention limits of a stream
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
+|Httpmq-Request-ID|header|string|false|User provided request ID to match against logs|
 |streamName|path|string|true|JetStream stream name|
 |body|body|[management.JSStreamLimits](#schemamanagement.jsstreamlimits)|true|New stream limits|
 
@@ -749,6 +763,7 @@ Change the list of subjects of interest for a stream
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
+|Httpmq-Request-ID|header|string|false|User provided request ID to match against logs|
 |streamName|path|string|true|JetStream stream name|
 |body|body|[apis.APIRestReqStreamSubjects](#schemaapis.apirestreqstreamsubjects)|true|List of new subjects|
 
@@ -789,6 +804,72 @@ This operation does not require authentication
 
 <h1 id="httpmq-dataplane">Dataplane</h1>
 
+## For dataplane REST API liveness check
+
+`GET /v1/data/alive`
+
+Will return success to indicate dataplane REST API module is live
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "error": {
+    "code": 0,
+    "message": "string"
+  },
+  "success": true
+}
+```
+
+<h3 id="for-dataplane-rest-api-liveness-check-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|string|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## For dataplane REST API readiness check
+
+`GET /v1/data/ready`
+
+Will return success if dataplane REST API module is ready for use
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "error": {
+    "code": 0,
+    "message": "string"
+  },
+  "success": true
+}
+```
+
+<h3 id="for-dataplane-rest-api-readiness-check-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|string|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
 ## Establish a pull subscribe session
 
 `GET /v1/data/stream/{streamName}/consumer/{consumerName}`
@@ -799,6 +880,7 @@ Establish a JetStream pull subscribe session for a client. This is a long lived
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
+|Httpmq-Request-ID|header|string|false|User provided request ID to match against logs|
 |streamName|path|string|true|JetStream stream name|
 |consumerName|path|string|true|JetStream consumer name|
 |subject_name|query|string|true|JetStream subject to subscribe to|
@@ -811,9 +893,7 @@ Establish a JetStream pull subscribe session for a client. This is a long lived
 
 ```json
 {
-  "b64_msg": [
-    0
-  ],
+  "b64_msg": "SGVsbG8gV29ybGQK",
   "consumer": "string",
   "error": {
     "code": 0,
@@ -869,6 +949,7 @@ Process JetStream message ACK for a stream / consumer
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
+|Httpmq-Request-ID|header|string|false|User provided request ID to match against logs|
 |streamName|path|string|true|JetStream stream name|
 |consumerName|path|string|true|JetStream consumer name|
 |body|body|[dataplane.AckSeqNum](#schemadataplane.ackseqnum)|true|Message message sequence numbers|
@@ -925,6 +1006,7 @@ string
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
+|Httpmq-Request-ID|header|string|false|User provided request ID to match against logs|
 |subjectName|path|string|true|JetStream subject to publish under|
 |body|body|string|true|Message to publish in Base64 encoding|
 
@@ -1251,9 +1333,7 @@ This operation does not require authentication
 
 ```json
 {
-  "b64_msg": [
-    0
-  ],
+  "b64_msg": "SGVsbG8gV29ybGQK",
   "consumer": "string",
   "error": {
     "code": 0,
@@ -1274,7 +1354,7 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|b64_msg|[integer]|true|none|Message is the message body|
+|b64_msg|string(base64)|true|none|Message is the message body|
 |consumer|string|true|none|Consumer is the name of the consumer|
 |error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
 |sequence|[dataplane.MsgToDeliverSeq](#schemadataplane.msgtodeliverseq)|true|none|Sequence is the sequence numbers for this JetStream message|
@@ -1614,8 +1694,8 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|consumer|integer|false|none|Consumer is the message sequence number for this consumer|
-|stream|integer|false|none|Stream is the message sequence number within the stream|
+|consumer|integer|true|none|Consumer is the message sequence number for this consumer|
+|stream|integer|true|none|Stream is the message sequence number within the stream|
 
 <h2 id="tocS_management.JSStreamLimits">management.JSStreamLimits</h2>
 
