@@ -4,7 +4,7 @@
         "description": "HTTP/2 based message broker built around NATS JetStream",
         "title": "httpmq",
         "contact": {},
-        "version": "v0.1.4"
+        "version": "v0.2.0"
     },
     "host": "localhost:3000",
     "basePath": "/",
@@ -1192,6 +1192,7 @@
                 "subjects": {
                     "description": "Subjects the list of new subject this stream will listen to",
                     "type": "array",
+                    "minItems": 1,
                     "items": {
                         "type": "string"
                     }
@@ -1263,7 +1264,7 @@
                     "type": "string"
                 },
                 "filter_subject": {
-                    "description": "FilterSubject sets the consumer to filter for subjects matching this NATs subject string\n\nSee https://docs.nats.io/running-a-nats-service/nats_admin/jetstream_admin/naming",
+                    "description": "FilterSubject sets the consumer to filter for subjects matching this NATs subject string\n\nSee https://docs.nats.io/nats-concepts/subjects",
                     "type": "string"
                 },
                 "max_ack_pending": {
@@ -1602,11 +1603,13 @@
             "properties": {
                 "consumer": {
                     "description": "Consumer is the JetStream message sequence number for this consumer",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "stream": {
                     "description": "Stream is the JetStream message sequence number for this stream",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 }
             }
         },
@@ -1619,11 +1622,13 @@
             "properties": {
                 "consumer": {
                     "description": "Consumer is the message sequence number for this consumer",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "stream": {
                     "description": "Stream is the message sequence number within the stream",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 }
             }
         },
@@ -1636,23 +1641,28 @@
                 },
                 "max_bytes": {
                     "description": "MaxBytes is the max number of message bytes the stream will store.\n\nOldest messages are removed once limit breached.",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": -1
                 },
                 "max_consumers": {
                     "description": "MaxConsumers is the max number of consumers allowed on the stream",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": -1
                 },
                 "max_msg_size": {
                     "description": "MaxMsgSize is the max size of a message allowed in this stream",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": -1
                 },
                 "max_msgs": {
                     "description": "MaxMsgs is the max number of messages the stream will store.\n\nOldest messages are removed once limit breached.",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": -1
                 },
                 "max_msgs_per_subject": {
                     "description": "MaxMsgsPerSubject is the maximum number of subjects allowed on this stream",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": -1
                 }
             }
         },
@@ -1668,23 +1678,28 @@
                 },
                 "max_bytes": {
                     "description": "MaxBytes is the max number of message bytes the stream will store.\n\nOldest messages are removed once limit breached.",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": -1
                 },
                 "max_consumers": {
                     "description": "MaxConsumers is the max number of consumers allowed on the stream",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": -1
                 },
                 "max_msg_size": {
                     "description": "MaxMsgSize is the max size of a message allowed in this stream",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": -1
                 },
                 "max_msgs": {
                     "description": "MaxMsgs is the max number of messages the stream will store.\n\nOldest messages are removed once limit breached.",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": -1
                 },
                 "max_msgs_per_subject": {
                     "description": "MaxMsgsPerSubject is the maximum number of subjects allowed on this stream",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": -1
                 },
                 "name": {
                     "description": "Name is the stream name",
@@ -1716,20 +1731,26 @@
                     "type": "string"
                 },
                 "filter_subject": {
-                    "description": "FilterSubject sets the consumer to filter for subjects matching this NATs subject string\n\nSee https://docs.nats.io/running-a-nats-service/nats_admin/jetstream_admin/naming",
+                    "description": "FilterSubject sets the consumer to filter for subjects matching this NATs subject string\n\nSee https://docs.nats.io/nats-concepts/subjects",
                     "type": "string"
                 },
                 "max_inflight": {
                     "description": "MaxInflight is max number of un-ACKed message permitted in-flight (must be \u003e= 1)",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "max_retry": {
                     "description": "MaxRetry max number of times an un-ACKed message is resent (-1: infinite)",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": -1
                 },
                 "mode": {
                     "description": "Mode whether the consumer is push or pull consumer",
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "push",
+                        "pull"
+                    ]
                 },
                 "name": {
                     "description": "Name is the consumer name",

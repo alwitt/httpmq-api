@@ -1,5 +1,5 @@
 ---
-title: httpmq v0.1.4
+title: httpmq v0.2.0
 language_tabs:
   - shell: Shell
   - http: HTTP
@@ -19,7 +19,7 @@ generator: widdershins v4.0.1
 
 ---
 
-<h1 id="httpmq">HTTP MQ REST API v0.1.4</h1>
+<h1 id="httpmq">HTTP MQ REST API v0.2.0</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -207,11 +207,11 @@ Define new JetStream stream
 ```json
 {
   "max_age": 0,
-  "max_bytes": 0,
-  "max_consumers": 0,
-  "max_msg_size": 0,
-  "max_msgs": 0,
-  "max_msgs_per_subject": 0,
+  "max_bytes": -1,
+  "max_consumers": -1,
+  "max_msg_size": -1,
+  "max_msgs": -1,
+  "max_msgs_per_subject": -1,
   "name": "string",
   "subjects": [
     "string"
@@ -503,9 +503,9 @@ Create a new consumer on a stream. The stream must already be defined.
   "ack_wait": 0,
   "delivery_group": "string",
   "filter_subject": "string",
-  "max_inflight": 0,
-  "max_retry": 0,
-  "mode": "string",
+  "max_inflight": 1,
+  "max_retry": -1,
+  "mode": "push",
   "name": "string",
   "notes": "string"
 }
@@ -692,11 +692,11 @@ Change the data retention limits of a stream
 ```json
 {
   "max_age": 0,
-  "max_bytes": 0,
-  "max_consumers": 0,
-  "max_msg_size": 0,
-  "max_msgs": 0,
-  "max_msgs_per_subject": 0
+  "max_bytes": -1,
+  "max_consumers": -1,
+  "max_msg_size": -1,
+  "max_msgs": -1,
+  "max_msgs_per_subject": -1
 }
 ```
 
@@ -1263,7 +1263,7 @@ This operation does not require authentication
 |ack_wait|integer|true|none|AckWait duration (ns) to wait for an ACK for the delivery of a message|
 |deliver_group|string|false|none|DeliverGroup is the delivery group if this consumer uses delivery group<br /><br />A consumer using delivery group allows multiple clients to subscribe under the same consumer<br />and group name tuple. For subjects this consumer listens to, the messages will be shared<br />amongst the connected clients.|
 |deliver_subject|string|false|none|DeliverSubject subject this consumer is listening on|
-|filter_subject|string|false|none|FilterSubject sets the consumer to filter for subjects matching this NATs subject string<br /><br />See https://docs.nats.io/running-a-nats-service/nats_admin/jetstream_admin/naming|
+|filter_subject|string|false|none|FilterSubject sets the consumer to filter for subjects matching this NATs subject string<br /><br />See https://docs.nats.io/nats-concepts/subjects|
 |max_ack_pending|integer|false|none|MaxAckPending controls the max number of un-ACKed messages permitted in-flight|
 |max_deliver|integer|false|none|MaxDeliver max number of times a message can be deliveried (including retry) to this consumer|
 |max_waiting|integer|false|none|MaxWaiting NATS JetStream does not clearly document this|
@@ -1707,11 +1707,11 @@ This operation does not require authentication
 ```json
 {
   "max_age": 0,
-  "max_bytes": 0,
-  "max_consumers": 0,
-  "max_msg_size": 0,
-  "max_msgs": 0,
-  "max_msgs_per_subject": 0
+  "max_bytes": -1,
+  "max_consumers": -1,
+  "max_msg_size": -1,
+  "max_msgs": -1,
+  "max_msgs_per_subject": -1
 }
 
 ```
@@ -1737,11 +1737,11 @@ This operation does not require authentication
 ```json
 {
   "max_age": 0,
-  "max_bytes": 0,
-  "max_consumers": 0,
-  "max_msg_size": 0,
-  "max_msgs": 0,
-  "max_msgs_per_subject": 0,
+  "max_bytes": -1,
+  "max_consumers": -1,
+  "max_msg_size": -1,
+  "max_msgs": -1,
+  "max_msgs_per_subject": -1,
   "name": "string",
   "subjects": [
     "string"
@@ -1775,9 +1775,9 @@ This operation does not require authentication
   "ack_wait": 0,
   "delivery_group": "string",
   "filter_subject": "string",
-  "max_inflight": 0,
-  "max_retry": 0,
-  "mode": "string",
+  "max_inflight": 1,
+  "max_retry": -1,
+  "mode": "push",
   "name": "string",
   "notes": "string"
 }
@@ -1790,10 +1790,17 @@ This operation does not require authentication
 |---|---|---|---|---|
 |ack_wait|integer|false|none|AckWait when specified, the number of ns to wait for ACK before retry|
 |delivery_group|string|false|none|DeliveryGroup creates a consumer using a delivery group name.<br /><br />A consumer using delivery group allows multiple clients to subscribe under the same consumer<br />and group name tuple. For subjects this consumer listens to, the messages will be shared<br />amongst the connected clients.|
-|filter_subject|string|false|none|FilterSubject sets the consumer to filter for subjects matching this NATs subject string<br /><br />See https://docs.nats.io/running-a-nats-service/nats_admin/jetstream_admin/naming|
+|filter_subject|string|false|none|FilterSubject sets the consumer to filter for subjects matching this NATs subject string<br /><br />See https://docs.nats.io/nats-concepts/subjects|
 |max_inflight|integer|true|none|MaxInflight is max number of un-ACKed message permitted in-flight (must be >= 1)|
 |max_retry|integer|false|none|MaxRetry max number of times an un-ACKed message is resent (-1: infinite)|
 |mode|string|true|none|Mode whether the consumer is push or pull consumer|
 |name|string|true|none|Name is the consumer name|
 |notes|string|false|none|Notes are descriptions regarding this consumer|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|mode|push|
+|mode|pull|
 

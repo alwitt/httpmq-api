@@ -6,6 +6,7 @@ definitions:
         description: Subjects the list of new subject this stream will listen to
         items:
           type: string
+        minItems: 1
         type: array
     required:
     - subjects
@@ -64,7 +65,7 @@ definitions:
         description: |-
           FilterSubject sets the consumer to filter for subjects matching this NATs subject string
 
-          See https://docs.nats.io/running-a-nats-service/nats_admin/jetstream_admin/naming
+          See https://docs.nats.io/nats-concepts/subjects
         type: string
       max_ack_pending:
         description: MaxAckPending controls the max number of un-ACKed messages permitted
@@ -331,9 +332,11 @@ definitions:
     properties:
       consumer:
         description: Consumer is the JetStream message sequence number for this consumer
+        minimum: 0
         type: integer
       stream:
         description: Stream is the JetStream message sequence number for this stream
+        minimum: 0
         type: integer
     required:
     - consumer
@@ -343,9 +346,11 @@ definitions:
     properties:
       consumer:
         description: Consumer is the message sequence number for this consumer
+        minimum: 0
         type: integer
       stream:
         description: Stream is the message sequence number within the stream
+        minimum: 0
         type: integer
     required:
     - consumer
@@ -364,22 +369,27 @@ definitions:
           MaxBytes is the max number of message bytes the stream will store.
 
           Oldest messages are removed once limit breached.
+        minimum: -1
         type: integer
       max_consumers:
         description: MaxConsumers is the max number of consumers allowed on the stream
+        minimum: -1
         type: integer
       max_msg_size:
         description: MaxMsgSize is the max size of a message allowed in this stream
+        minimum: -1
         type: integer
       max_msgs:
         description: |-
           MaxMsgs is the max number of messages the stream will store.
 
           Oldest messages are removed once limit breached.
+        minimum: -1
         type: integer
       max_msgs_per_subject:
         description: MaxMsgsPerSubject is the maximum number of subjects allowed on
           this stream
+        minimum: -1
         type: integer
     type: object
   management.JSStreamParam:
@@ -395,22 +405,27 @@ definitions:
           MaxBytes is the max number of message bytes the stream will store.
 
           Oldest messages are removed once limit breached.
+        minimum: -1
         type: integer
       max_consumers:
         description: MaxConsumers is the max number of consumers allowed on the stream
+        minimum: -1
         type: integer
       max_msg_size:
         description: MaxMsgSize is the max size of a message allowed in this stream
+        minimum: -1
         type: integer
       max_msgs:
         description: |-
           MaxMsgs is the max number of messages the stream will store.
 
           Oldest messages are removed once limit breached.
+        minimum: -1
         type: integer
       max_msgs_per_subject:
         description: MaxMsgsPerSubject is the maximum number of subjects allowed on
           this stream
+        minimum: -1
         type: integer
       name:
         description: Name is the stream name
@@ -441,18 +456,23 @@ definitions:
         description: |-
           FilterSubject sets the consumer to filter for subjects matching this NATs subject string
 
-          See https://docs.nats.io/running-a-nats-service/nats_admin/jetstream_admin/naming
+          See https://docs.nats.io/nats-concepts/subjects
         type: string
       max_inflight:
         description: MaxInflight is max number of un-ACKed message permitted in-flight
           (must be >= 1)
+        minimum: 1
         type: integer
       max_retry:
         description: 'MaxRetry max number of times an un-ACKed message is resent (-1:
           infinite)'
+        minimum: -1
         type: integer
       mode:
         description: Mode whether the consumer is push or pull consumer
+        enum:
+        - push
+        - pull
         type: string
       name:
         description: Name is the consumer name
@@ -470,7 +490,7 @@ info:
   contact: {}
   description: HTTP/2 based message broker built around NATS JetStream
   title: httpmq
-  version: v0.1.4
+  version: v0.2.0
 paths:
   /v1/admin/alive:
     get:
