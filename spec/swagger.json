@@ -4,7 +4,7 @@
         "description": "HTTP/2 based message broker built around NATS JetStream",
         "title": "httpmq",
         "contact": {},
-        "version": "v0.2.0"
+        "version": "v0.2.3"
     },
     "host": "localhost:3000",
     "basePath": "/",

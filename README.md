@@ -1,5 +1,5 @@
 ---
-title: httpmq v0.2.0
+title: httpmq v0.2.3
 language_tabs:
   - shell: Shell
   - http: HTTP
@@ -19,7 +19,7 @@ generator: widdershins v4.0.1
 
 ---
 
-<h1 id="httpmq">HTTP MQ REST API v0.2.0</h1>
+<h1 id="httpmq">HTTP MQ REST API v0.2.3</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
