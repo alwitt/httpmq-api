@@ -1,5 +1,5 @@
 ---
-title: httpmq v0.2.3
+title: httpmq v0.3.0
 language_tabs:
   - shell: Shell
   - http: HTTP
@@ -19,7 +19,7 @@ generator: widdershins v4.0.1
 
 ---
 
-<h1 id="httpmq">HTTP MQ REST API v0.2.3</h1>
+<h1 id="httpmq">HTTP MQ REST API v0.3.0</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -45,8 +45,10 @@ Will return success to indicate management REST API module is live
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 ```
@@ -78,8 +80,10 @@ Will return success if management REST API module is ready for use
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 ```
@@ -117,8 +121,10 @@ Query for the details of all streams
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "streams": {
     "property1": {
       "config": {
@@ -234,8 +240,10 @@ Define new JetStream stream
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 ```
@@ -282,8 +290,10 @@ Delete a stream
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 ```
@@ -330,8 +340,10 @@ Query for the details of one stream
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "stream": {
     "config": {
       "description": "string",
@@ -463,8 +475,10 @@ Query for the details of all consumers of a stream
   },
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 ```
@@ -527,8 +541,10 @@ Create a new consumer on a stream. The stream must already be defined.
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 ```
@@ -576,8 +592,10 @@ Delete one consumer of a stream
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 ```
@@ -654,8 +672,10 @@ Query for the details of a consumer on a stream
   },
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 ```
@@ -716,8 +736,10 @@ Change the data retention limits of a stream
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 ```
@@ -775,8 +797,10 @@ Change the list of subjects of interest for a stream
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 ```
@@ -818,8 +842,10 @@ Will return success to indicate dataplane REST API module is live
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 ```
@@ -851,8 +877,10 @@ Will return success if dataplane REST API module is ready for use
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 ```
@@ -897,8 +925,10 @@ Establish a JetStream pull subscribe session for a client. This is a long lived
   "consumer": "string",
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "sequence": {
     "consumer": 0,
     "stream": 0
@@ -962,8 +992,10 @@ Process JetStream message ACK for a stream / consumer
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 ```
@@ -1018,8 +1050,10 @@ string
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 ```
@@ -1140,8 +1174,10 @@ This operation does not require authentication
   },
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 
@@ -1154,6 +1190,7 @@ This operation does not require authentication
 |consumers|object|false|none|Consumers the set of consumer details mapped against consumer name|
 |» **additionalProperties**|[apis.APIRestRespConsumerInfo](#schemaapis.apirestrespconsumerinfo)|false|none|none|
 |error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
+|request_id|string|true|none|RequestID gives the request ID to match against logs|
 |success|boolean|true|none|Success indicates whether the request was successful|
 
 <h2 id="tocS_apis.APIRestRespAllJetStreams">apis.APIRestRespAllJetStreams</h2>
@@ -1167,8 +1204,10 @@ This operation does not require authentication
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "streams": {
     "property1": {
       "config": {
@@ -1231,6 +1270,7 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
+|request_id|string|true|none|RequestID gives the request ID to match against logs|
 |streams|object|false|none|Streams the set of stream details mapped against its names|
 |» **additionalProperties**|[apis.APIRestRespStreamInfo](#schemaapis.apirestrespstreaminfo)|false|none|none|
 |success|boolean|true|none|Success indicates whether the request was successful|
@@ -1337,8 +1377,10 @@ This operation does not require authentication
   "consumer": "string",
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "sequence": {
     "consumer": 0,
     "stream": 0
@@ -1357,6 +1399,7 @@ This operation does not require authentication
 |b64_msg|string(base64)|true|none|Message is the message body|
 |consumer|string|true|none|Consumer is the name of the consumer|
 |error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
+|request_id|string|true|none|RequestID gives the request ID to match against logs|
 |sequence|[dataplane.MsgToDeliverSeq](#schemadataplane.msgtodeliverseq)|true|none|Sequence is the sequence numbers for this JetStream message|
 |stream|string|true|none|Stream is the name of the stream|
 |subject|string|true|none|Subject is the name of the subject / subject filter|
@@ -1373,8 +1416,10 @@ This operation does not require authentication
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "stream": {
     "config": {
       "description": "string",
@@ -1410,6 +1455,7 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
+|request_id|string|true|none|RequestID gives the request ID to match against logs|
 |stream|[apis.APIRestRespStreamInfo](#schemaapis.apirestrespstreaminfo)|false|none|Stream the details for this stream|
 |success|boolean|true|none|Success indicates whether the request was successful|
 
@@ -1453,8 +1499,10 @@ This operation does not require authentication
   },
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 
@@ -1466,6 +1514,7 @@ This operation does not require authentication
 |---|---|---|---|---|
 |consumer|[apis.APIRestRespConsumerInfo](#schemaapis.apirestrespconsumerinfo)|false|none|Consumer the details regarding this consumer|
 |error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
+|request_id|string|true|none|RequestID gives the request ID to match against logs|
 |success|boolean|true|none|Success indicates whether the request was successful|
 
 <h2 id="tocS_apis.APIRestRespSequenceInfo">apis.APIRestRespSequenceInfo</h2>
@@ -1616,6 +1665,7 @@ This operation does not require authentication
 ```json
 {
   "code": 0,
+  "detail": "string",
   "message": "string"
 }
 
@@ -1626,6 +1676,7 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |code|integer|true|none|Code is the response code|
+|detail|string|false|none|Detail is an optional descriptive message providing additional details on the error|
 |message|string|false|none|Msg is an optional descriptive message|
 
 <h2 id="tocS_apis.StandardResponse">apis.StandardResponse</h2>
@@ -1639,8 +1690,10 @@ This operation does not require authentication
 {
   "error": {
     "code": 0,
+    "detail": "string",
     "message": "string"
   },
+  "request_id": "string",
   "success": true
 }
 
@@ -1651,6 +1704,7 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
+|request_id|string|true|none|RequestID gives the request ID to match against logs|
 |success|boolean|true|none|Success indicates whether the request was successful|
 
 <h2 id="tocS_dataplane.AckSeqNum">dataplane.AckSeqNum</h2>

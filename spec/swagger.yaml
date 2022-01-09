@@ -22,10 +22,14 @@ definitions:
       error:
         $ref: '#/definitions/apis.ErrorDetail'
         description: Error are details in case of errors
+      request_id:
+        description: RequestID gives the request ID to match against logs
+        type: string
       success:
         description: Success indicates whether the request was successful
         type: boolean
     required:
+    - request_id
     - success
     type: object
   apis.APIRestRespAllJetStreams:
@@ -33,6 +37,9 @@ definitions:
       error:
         $ref: '#/definitions/apis.ErrorDetail'
         description: Error are details in case of errors
+      request_id:
+        description: RequestID gives the request ID to match against logs
+        type: string
       streams:
         additionalProperties:
           $ref: '#/definitions/apis.APIRestRespStreamInfo'
@@ -42,6 +49,7 @@ definitions:
         description: Success indicates whether the request was successful
         type: boolean
     required:
+    - request_id
     - success
     type: object
   apis.APIRestRespConsumerConfig:
@@ -146,6 +154,9 @@ definitions:
       error:
         $ref: '#/definitions/apis.ErrorDetail'
         description: Error are details in case of errors
+      request_id:
+        description: RequestID gives the request ID to match against logs
+        type: string
       sequence:
         $ref: '#/definitions/dataplane.MsgToDeliverSeq'
         description: Sequence is the sequence numbers for this JetStream message
@@ -161,6 +172,7 @@ definitions:
     required:
     - b64_msg
     - consumer
+    - request_id
     - sequence
     - stream
     - subject
@@ -171,6 +183,9 @@ definitions:
       error:
         $ref: '#/definitions/apis.ErrorDetail'
         description: Error are details in case of errors
+      request_id:
+        description: RequestID gives the request ID to match against logs
+        type: string
       stream:
         $ref: '#/definitions/apis.APIRestRespStreamInfo'
         description: Stream the details for this stream
@@ -178,6 +193,7 @@ definitions:
         description: Success indicates whether the request was successful
         type: boolean
     required:
+    - request_id
     - success
     type: object
   apis.APIRestRespOneJetStreamConsumer:
@@ -188,10 +204,14 @@ definitions:
       error:
         $ref: '#/definitions/apis.ErrorDetail'
         description: Error are details in case of errors
+      request_id:
+        description: RequestID gives the request ID to match against logs
+        type: string
       success:
         description: Success indicates whether the request was successful
         type: boolean
     required:
+    - request_id
     - success
     type: object
   apis.APIRestRespSequenceInfo:
@@ -311,6 +331,10 @@ definitions:
       code:
         description: Code is the response code
         type: integer
+      detail:
+        description: Detail is an optional descriptive message providing additional
+          details on the error
+        type: string
       message:
         description: Msg is an optional descriptive message
         type: string
@@ -322,10 +346,14 @@ definitions:
       error:
         $ref: '#/definitions/apis.ErrorDetail'
         description: Error are details in case of errors
+      request_id:
+        description: RequestID gives the request ID to match against logs
+        type: string
       success:
         description: Success indicates whether the request was successful
         type: boolean
     required:
+    - request_id
     - success
     type: object
   dataplane.AckSeqNum:
@@ -490,7 +518,7 @@ info:
   contact: {}
   description: HTTP/2 based message broker built around NATS JetStream
   title: httpmq
-  version: v0.2.3
+  version: v0.3.0
 paths:
   /v1/admin/alive:
     get:

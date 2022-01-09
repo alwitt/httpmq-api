@@ -4,7 +4,7 @@
         "description": "HTTP/2 based message broker built around NATS JetStream",
         "title": "httpmq",
         "contact": {},
-        "version": "v0.2.3"
+        "version": "v0.3.0"
     },
     "host": "localhost:3000",
     "basePath": "/",
@@ -1202,6 +1202,7 @@
         "apis.APIRestRespAllJetStreamConsumers": {
             "type": "object",
             "required": [
+                "request_id",
                 "success"
             ],
             "properties": {
@@ -1216,6 +1217,10 @@
                     "description": "Error are details in case of errors",
                     "$ref": "#/definitions/apis.ErrorDetail"
                 },
+                "request_id": {
+                    "description": "RequestID gives the request ID to match against logs",
+                    "type": "string"
+                },
                 "success": {
                     "description": "Success indicates whether the request was successful",
                     "type": "boolean"
@@ -1225,12 +1230,17 @@
         "apis.APIRestRespAllJetStreams": {
             "type": "object",
             "required": [
+                "request_id",
                 "success"
             ],
             "properties": {
                 "error": {
                     "description": "Error are details in case of errors",
                     "$ref": "#/definitions/apis.ErrorDetail"
+                },
+                "request_id": {
+                    "description": "RequestID gives the request ID to match against logs",
+                    "type": "string"
                 },
                 "streams": {
                     "description": "Streams the set of stream details mapped against its names",
@@ -1347,6 +1357,7 @@
             "required": [
                 "b64_msg",
                 "consumer",
+                "request_id",
                 "sequence",
                 "stream",
                 "subject",
@@ -1366,6 +1377,10 @@
                 "error": {
                     "description": "Error are details in case of errors",
                     "$ref": "#/definitions/apis.ErrorDetail"
+                },
+                "request_id": {
+                    "description": "RequestID gives the request ID to match against logs",
+                    "type": "string"
                 },
                 "sequence": {
                     "description": "Sequence is the sequence numbers for this JetStream message",
@@ -1388,12 +1403,17 @@
         "apis.APIRestRespOneJetStream": {
             "type": "object",
             "required": [
+                "request_id",
                 "success"
             ],
             "properties": {
                 "error": {
                     "description": "Error are details in case of errors",
                     "$ref": "#/definitions/apis.ErrorDetail"
+                },
+                "request_id": {
+                    "description": "RequestID gives the request ID to match against logs",
+                    "type": "string"
                 },
                 "stream": {
                     "description": "Stream the details for this stream",
@@ -1408,6 +1428,7 @@
         "apis.APIRestRespOneJetStreamConsumer": {
             "type": "object",
             "required": [
+                "request_id",
                 "success"
             ],
             "properties": {
@@ -1418,6 +1439,10 @@
                 "error": {
                     "description": "Error are details in case of errors",
                     "$ref": "#/definitions/apis.ErrorDetail"
+                },
+                "request_id": {
+                    "description": "RequestID gives the request ID to match against logs",
+                    "type": "string"
                 },
                 "success": {
                     "description": "Success indicates whether the request was successful",
@@ -1572,6 +1597,10 @@
                     "description": "Code is the response code",
                     "type": "integer"
                 },
+                "detail": {
+                    "description": "Detail is an optional descriptive message providing additional details on the error",
+                    "type": "string"
+                },
                 "message": {
                     "description": "Msg is an optional descriptive message",
                     "type": "string"
@@ -1581,12 +1610,17 @@
         "apis.StandardResponse": {
             "type": "object",
             "required": [
+                "request_id",
                 "success"
             ],
             "properties": {
                 "error": {
                     "description": "Error are details in case of errors",
                     "$ref": "#/definitions/apis.ErrorDetail"
+                },
+                "request_id": {
+                    "description": "RequestID gives the request ID to match against logs",
+                    "type": "string"
                 },
                 "success": {
                     "description": "Success indicates whether the request was successful",
