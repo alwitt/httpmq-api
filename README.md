@@ -1,5 +1,5 @@
 ---
-title: httpmq v0.3.0
+title: httpmq v0.4.0-rc.2
 language_tabs:
   - shell: Shell
   - http: HTTP
@@ -19,7 +19,7 @@ generator: widdershins v4.0.1
 
 ---
 
-<h1 id="httpmq">HTTP MQ REST API v0.3.0</h1>
+<h1 id="httpmq">HTTP MQ REST API v0.4.0-rc.2</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -57,10 +57,10 @@ Will return success to indicate management REST API module is live
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|string|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 <aside class="success">
 This operation does not require authentication
@@ -92,10 +92,10 @@ Will return success if management REST API module is ready for use
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|string|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 <aside class="success">
 This operation does not require authentication
@@ -186,9 +186,9 @@ Query for the details of all streams
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.APIRestRespAllJetStreams](#schemaapis.apirestrespalljetstreams)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 ### Response Headers
 
@@ -252,10 +252,10 @@ Define new JetStream stream
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 ### Response Headers
 
@@ -302,10 +302,10 @@ Delete a stream
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 ### Response Headers
 
@@ -378,9 +378,9 @@ Query for the details of one stream
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.APIRestRespOneJetStream](#schemaapis.apirestresponejetstream)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 ### Response Headers
 
@@ -488,9 +488,9 @@ Query for the details of all consumers of a stream
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.APIRestRespAllJetStreamConsumers](#schemaapis.apirestrespalljetstreamconsumers)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 ### Response Headers
 
@@ -553,10 +553,10 @@ Create a new consumer on a stream. The stream must already be defined.
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 ### Response Headers
 
@@ -604,10 +604,10 @@ Delete one consumer of a stream
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 ### Response Headers
 
@@ -685,9 +685,9 @@ Query for the details of a consumer on a stream
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.APIRestRespOneJetStreamConsumer](#schemaapis.apirestresponejetstreamconsumer)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 ### Response Headers
 
@@ -748,10 +748,10 @@ Change the data retention limits of a stream
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 ### Response Headers
 
@@ -809,10 +809,10 @@ Change the list of subjects of interest for a stream
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 ### Response Headers
 
@@ -854,10 +854,10 @@ Will return success to indicate dataplane REST API module is live
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|string|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 <aside class="success">
 This operation does not require authentication
@@ -889,10 +889,10 @@ Will return success if dataplane REST API module is ready for use
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|string|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 <aside class="success">
 This operation does not require authentication
@@ -944,9 +944,9 @@ Establish a JetStream pull subscribe session for a client. This is a long lived
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.APIRestRespDataMessage](#schemaapis.apirestrespdatamessage)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 ### Response Headers
 
@@ -1004,10 +1004,10 @@ Process JetStream message ACK for a stream / consumer
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 ### Response Headers
 
@@ -1062,10 +1062,10 @@ string
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[apis.StandardResponse](#schemaapis.standardresponse)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|success|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|error|string|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[apis.StandardResponse](#schemaapis.standardresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|error|[goutils.RestAPIBaseResponse](#schemagoutils.restapibaseresponse)|
 
 ### Response Headers
 
@@ -1189,7 +1189,7 @@ This operation does not require authentication
 |---|---|---|---|---|
 |consumers|object|false|none|Consumers the set of consumer details mapped against consumer name|
 |» **additionalProperties**|[apis.APIRestRespConsumerInfo](#schemaapis.apirestrespconsumerinfo)|false|none|none|
-|error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
+|error|[goutils.ErrorDetail](#schemagoutils.errordetail)|false|none|Error are details in case of errors|
 |request_id|string|true|none|RequestID gives the request ID to match against logs|
 |success|boolean|true|none|Success indicates whether the request was successful|
 
@@ -1269,7 +1269,7 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
+|error|[goutils.ErrorDetail](#schemagoutils.errordetail)|false|none|Error are details in case of errors|
 |request_id|string|true|none|RequestID gives the request ID to match against logs|
 |streams|object|false|none|Streams the set of stream details mapped against its names|
 |» **additionalProperties**|[apis.APIRestRespStreamInfo](#schemaapis.apirestrespstreaminfo)|false|none|none|
@@ -1398,7 +1398,7 @@ This operation does not require authentication
 |---|---|---|---|---|
 |b64_msg|string(base64)|true|none|Message is the message body|
 |consumer|string|true|none|Consumer is the name of the consumer|
-|error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
+|error|[goutils.ErrorDetail](#schemagoutils.errordetail)|false|none|Error are details in case of errors|
 |request_id|string|true|none|RequestID gives the request ID to match against logs|
 |sequence|[dataplane.MsgToDeliverSeq](#schemadataplane.msgtodeliverseq)|true|none|Sequence is the sequence numbers for this JetStream message|
 |stream|string|true|none|Stream is the name of the stream|
@@ -1454,7 +1454,7 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
+|error|[goutils.ErrorDetail](#schemagoutils.errordetail)|false|none|Error are details in case of errors|
 |request_id|string|true|none|RequestID gives the request ID to match against logs|
 |stream|[apis.APIRestRespStreamInfo](#schemaapis.apirestrespstreaminfo)|false|none|Stream the details for this stream|
 |success|boolean|true|none|Success indicates whether the request was successful|
@@ -1513,7 +1513,7 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |consumer|[apis.APIRestRespConsumerInfo](#schemaapis.apirestrespconsumerinfo)|false|none|Consumer the details regarding this consumer|
-|error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
+|error|[goutils.ErrorDetail](#schemagoutils.errordetail)|false|none|Error are details in case of errors|
 |request_id|string|true|none|RequestID gives the request ID to match against logs|
 |success|boolean|true|none|Success indicates whether the request was successful|
 
@@ -1655,58 +1655,6 @@ This operation does not require authentication
 |last_ts|string|true|none|LastTime is the newest message timestamp on the stream|
 |messages|integer|true|none|Msgs is the number of messages in the stream|
 
-<h2 id="tocS_apis.ErrorDetail">apis.ErrorDetail</h2>
-
-<a id="schemaapis.errordetail"></a>
-<a id="schema_apis.ErrorDetail"></a>
-<a id="tocSapis.errordetail"></a>
-<a id="tocsapis.errordetail"></a>
-
-```json
-{
-  "code": 0,
-  "detail": "string",
-  "message": "string"
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|code|integer|true|none|Code is the response code|
-|detail|string|false|none|Detail is an optional descriptive message providing additional details on the error|
-|message|string|false|none|Msg is an optional descriptive message|
-
-<h2 id="tocS_apis.StandardResponse">apis.StandardResponse</h2>
-
-<a id="schemaapis.standardresponse"></a>
-<a id="schema_apis.StandardResponse"></a>
-<a id="tocSapis.standardresponse"></a>
-<a id="tocsapis.standardresponse"></a>
-
-```json
-{
-  "error": {
-    "code": 0,
-    "detail": "string",
-    "message": "string"
-  },
-  "request_id": "string",
-  "success": true
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|error|[apis.ErrorDetail](#schemaapis.errordetail)|false|none|Error are details in case of errors|
-|request_id|string|true|none|RequestID gives the request ID to match against logs|
-|success|boolean|true|none|Success indicates whether the request was successful|
-
 <h2 id="tocS_dataplane.AckSeqNum">dataplane.AckSeqNum</h2>
 
 <a id="schemadataplane.ackseqnum"></a>
@@ -1750,6 +1698,58 @@ This operation does not require authentication
 |---|---|---|---|---|
 |consumer|integer|true|none|Consumer is the message sequence number for this consumer|
 |stream|integer|true|none|Stream is the message sequence number within the stream|
+
+<h2 id="tocS_goutils.ErrorDetail">goutils.ErrorDetail</h2>
+
+<a id="schemagoutils.errordetail"></a>
+<a id="schema_goutils.ErrorDetail"></a>
+<a id="tocSgoutils.errordetail"></a>
+<a id="tocsgoutils.errordetail"></a>
+
+```json
+{
+  "code": 0,
+  "detail": "string",
+  "message": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|code|integer|true|none|Code is the response code|
+|detail|string|false|none|Detail is an optional descriptive message providing additional details on the error|
+|message|string|false|none|Msg is an optional descriptive message|
+
+<h2 id="tocS_goutils.RestAPIBaseResponse">goutils.RestAPIBaseResponse</h2>
+
+<a id="schemagoutils.restapibaseresponse"></a>
+<a id="schema_goutils.RestAPIBaseResponse"></a>
+<a id="tocSgoutils.restapibaseresponse"></a>
+<a id="tocsgoutils.restapibaseresponse"></a>
+
+```json
+{
+  "error": {
+    "code": 0,
+    "detail": "string",
+    "message": "string"
+  },
+  "request_id": "string",
+  "success": true
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|error|[goutils.ErrorDetail](#schemagoutils.errordetail)|false|none|Error are details in case of errors|
+|request_id|string|true|none|RequestID gives the request ID to match against logs|
+|success|boolean|true|none|Success indicates whether the request was successful|
 
 <h2 id="tocS_management.JSStreamLimits">management.JSStreamLimits</h2>
 

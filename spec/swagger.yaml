@@ -20,7 +20,7 @@ definitions:
           name
         type: object
       error:
-        $ref: '#/definitions/apis.ErrorDetail'
+        $ref: '#/definitions/goutils.ErrorDetail'
         description: Error are details in case of errors
       request_id:
         description: RequestID gives the request ID to match against logs
@@ -35,7 +35,7 @@ definitions:
   apis.APIRestRespAllJetStreams:
     properties:
       error:
-        $ref: '#/definitions/apis.ErrorDetail'
+        $ref: '#/definitions/goutils.ErrorDetail'
         description: Error are details in case of errors
       request_id:
         description: RequestID gives the request ID to match against logs
@@ -152,7 +152,7 @@ definitions:
         description: Consumer is the name of the consumer
         type: string
       error:
-        $ref: '#/definitions/apis.ErrorDetail'
+        $ref: '#/definitions/goutils.ErrorDetail'
         description: Error are details in case of errors
       request_id:
         description: RequestID gives the request ID to match against logs
@@ -181,7 +181,7 @@ definitions:
   apis.APIRestRespOneJetStream:
     properties:
       error:
-        $ref: '#/definitions/apis.ErrorDetail'
+        $ref: '#/definitions/goutils.ErrorDetail'
         description: Error are details in case of errors
       request_id:
         description: RequestID gives the request ID to match against logs
@@ -202,7 +202,7 @@ definitions:
         $ref: '#/definitions/apis.APIRestRespConsumerInfo'
         description: Consumer the details regarding this consumer
       error:
-        $ref: '#/definitions/apis.ErrorDetail'
+        $ref: '#/definitions/goutils.ErrorDetail'
         description: Error are details in case of errors
       request_id:
         description: RequestID gives the request ID to match against logs
@@ -326,36 +326,6 @@ definitions:
     - last_ts
     - messages
     type: object
-  apis.ErrorDetail:
-    properties:
-      code:
-        description: Code is the response code
-        type: integer
-      detail:
-        description: Detail is an optional descriptive message providing additional
-          details on the error
-        type: string
-      message:
-        description: Msg is an optional descriptive message
-        type: string
-    required:
-    - code
-    type: object
-  apis.StandardResponse:
-    properties:
-      error:
-        $ref: '#/definitions/apis.ErrorDetail'
-        description: Error are details in case of errors
-      request_id:
-        description: RequestID gives the request ID to match against logs
-        type: string
-      success:
-        description: Success indicates whether the request was successful
-        type: boolean
-    required:
-    - request_id
-    - success
-    type: object
   dataplane.AckSeqNum:
     properties:
       consumer:
@@ -383,6 +353,36 @@ definitions:
     required:
     - consumer
     - stream
+    type: object
+  goutils.ErrorDetail:
+    properties:
+      code:
+        description: Code is the response code
+        type: integer
+      detail:
+        description: Detail is an optional descriptive message providing additional
+          details on the error
+        type: string
+      message:
+        description: Msg is an optional descriptive message
+        type: string
+    required:
+    - code
+    type: object
+  goutils.RestAPIBaseResponse:
+    properties:
+      error:
+        $ref: '#/definitions/goutils.ErrorDetail'
+        description: Error are details in case of errors
+      request_id:
+        description: RequestID gives the request ID to match against logs
+        type: string
+      success:
+        description: Success indicates whether the request was successful
+        type: boolean
+    required:
+    - request_id
+    - success
     type: object
   management.JSStreamLimits:
     properties:
@@ -518,7 +518,7 @@ info:
   contact: {}
   description: HTTP/2 based message broker built around NATS JetStream
   title: httpmq
-  version: v0.3.0
+  version: v0.4.0-rc.2
 paths:
   /v1/admin/alive:
     get:
@@ -529,7 +529,7 @@ paths:
         "200":
           description: success
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "400":
           description: error
           schema:
@@ -541,7 +541,7 @@ paths:
         "500":
           description: error
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: For management REST API liveness check
       tags:
       - Management
@@ -555,7 +555,7 @@ paths:
         "200":
           description: success
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "400":
           description: error
           schema:
@@ -567,7 +567,7 @@ paths:
         "500":
           description: error
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: For management REST API readiness check
       tags:
       - Management
@@ -597,7 +597,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "404":
           description: error
           schema:
@@ -609,7 +609,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: Query for info on all streams
       tags:
       - Management
@@ -638,7 +638,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "400":
           description: error
           headers:
@@ -646,7 +646,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "404":
           description: error
           schema:
@@ -658,7 +658,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: Define new stream
       tags:
       - Management
@@ -685,7 +685,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "400":
           description: error
           headers:
@@ -693,7 +693,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "404":
           description: error
           schema:
@@ -705,7 +705,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: Delete a stream
       tags:
       - Management
@@ -739,7 +739,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "404":
           description: error
           schema:
@@ -751,7 +751,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: Query for info on one stream
       tags:
       - Management
@@ -786,7 +786,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "404":
           description: error
           schema:
@@ -798,7 +798,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: Get all consumers of a stream
       tags:
       - Management
@@ -832,7 +832,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "400":
           description: error
           headers:
@@ -840,7 +840,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "404":
           description: error
           schema:
@@ -852,7 +852,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: Create a consumer on a stream
       tags:
       - Management
@@ -884,7 +884,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "400":
           description: error
           headers:
@@ -892,7 +892,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "404":
           description: error
           schema:
@@ -904,7 +904,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: Delete one consumer of a stream
       tags:
       - Management
@@ -943,7 +943,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "404":
           description: error
           schema:
@@ -955,7 +955,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: Get one consumer of a stream
       tags:
       - Management
@@ -990,7 +990,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "400":
           description: error
           headers:
@@ -998,7 +998,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "404":
           description: error
           schema:
@@ -1010,7 +1010,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: Change limits a stream
       tags:
       - Management
@@ -1045,7 +1045,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "400":
           description: error
           headers:
@@ -1053,7 +1053,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "404":
           description: error
           schema:
@@ -1065,7 +1065,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: Change subjects of a stream
       tags:
       - Management
@@ -1078,7 +1078,7 @@ paths:
         "200":
           description: success
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "400":
           description: error
           schema:
@@ -1090,7 +1090,7 @@ paths:
         "500":
           description: error
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: For dataplane REST API liveness check
       tags:
       - Dataplane
@@ -1103,7 +1103,7 @@ paths:
         "200":
           description: success
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "400":
           description: error
           schema:
@@ -1115,7 +1115,7 @@ paths:
         "500":
           description: error
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: For dataplane REST API readiness check
       tags:
       - Dataplane
@@ -1169,7 +1169,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "404":
           description: error
           schema:
@@ -1181,7 +1181,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: Establish a pull subscribe session
       tags:
       - Dataplane
@@ -1221,7 +1221,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "400":
           description: error
           headers:
@@ -1229,7 +1229,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "404":
           description: error
           schema:
@@ -1241,7 +1241,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: Handle ACK for message
       tags:
       - Dataplane
@@ -1276,7 +1276,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "400":
           description: error
           headers:
@@ -1284,7 +1284,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
         "404":
           description: error
           schema:
@@ -1296,7 +1296,7 @@ paths:
               description: Request ID to match against logs
               type: string
           schema:
-            $ref: '#/definitions/apis.StandardResponse'
+            $ref: '#/definitions/goutils.RestAPIBaseResponse'
       summary: Publish a message
       tags:
       - Dataplane
