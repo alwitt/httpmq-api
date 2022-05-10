@@ -14,7 +14,7 @@ build-go: .prepare ## Generate golang client
 	  openapitools/openapi-generator-cli:v5.3.1 \
 	    generate -i /input/swagger.yaml -g go -o /output/go --package-name api
 	@echo
-	@echo '!!! IMPORTANT: The generate Golang SDK at $(BASE_DIR)/tmp/go is owned by root !!!'
+	@echo '!!! IMPORTANT: The generated Golang SDK at $(BASE_DIR)/tmp/go is owned by root !!!'
 	@echo
 
 .PHONY: build-cpp
@@ -24,9 +24,9 @@ build-cpp: .prepare ## Generate C++ client using MS cpprestsdk
 	  --mount type=bind,source=$(BASE_DIR)/spec,target=/input,readonly \
 	  --mount type=bind,source=$(BASE_DIR)/tmp,target=/output \
 	  openapitools/openapi-generator-cli:v5.4.0 \
-	    generate -i /input/swagger.yaml -g 	cpp-restsdk -o /output/cpp --package-name httpmq
+	    generate -i /input/swagger.yaml -g 	cpp-restsdk -o /output/cpp --package-name httpmq --additional-properties apiPackage=httpmq.client.api,modelPackage=httpmq.client.model
 	@echo
-	@echo '!!! IMPORTANT: The generate C++ SDK at $(BASE_DIR)/tmp/cpp is owned by root !!!'
+	@echo '!!! IMPORTANT: The generated C++ SDK at $(BASE_DIR)/tmp/cpp is owned by root !!!'
 	@echo
 
 .prepare: ## Prepare build environment
