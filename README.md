@@ -1,5 +1,5 @@
 ---
-title: httpmq v0.4.0-rc.2
+title: httpmq v0.4.1-rc.4
 language_tabs:
   - shell: Shell
   - http: HTTP
@@ -19,7 +19,7 @@ generator: widdershins v4.0.1
 
 ---
 
-<h1 id="httpmq">HTTP MQ REST API v0.4.0-rc.2</h1>
+<h1 id="httpmq">HTTP MQ REST API v0.4.1-rc.4</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -898,13 +898,13 @@ Will return success if dataplane REST API module is ready for use
 This operation does not require authentication
 </aside>
 
-## Establish a pull subscribe session
+## Establish a push subscribe session
 
 `GET /v1/data/stream/{streamName}/consumer/{consumerName}`
 
-Establish a JetStream pull subscribe session for a client. This is a long lived
+Establish a JetStream push subscribe session for a client. This is a long lived
 
-<h3 id="establish-a-pull-subscribe-session-parameters">Parameters</h3>
+<h3 id="establish-a-push-subscribe-session-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -939,7 +939,7 @@ Establish a JetStream pull subscribe session for a client. This is a long lived
 }
 ```
 
-<h3 id="establish-a-pull-subscribe-session-responses">Responses</h3>
+<h3 id="establish-a-push-subscribe-session-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|

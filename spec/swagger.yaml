@@ -518,7 +518,7 @@ info:
   contact: {}
   description: HTTP/2 based message broker built around NATS JetStream
   title: httpmq
-  version: v0.4.0-rc.2
+  version: v0.4.1-rc.4
 paths:
   /v1/admin/alive:
     get:
@@ -1121,7 +1121,7 @@ paths:
       - Dataplane
   /v1/data/stream/{streamName}/consumer/{consumerName}:
     get:
-      description: Establish a JetStream pull subscribe session for a client. This
+      description: Establish a JetStream push subscribe session for a client. This
         is a long lived
       parameters:
       - description: User provided request ID to match against logs
@@ -1182,7 +1182,7 @@ paths:
               type: string
           schema:
             $ref: '#/definitions/goutils.RestAPIBaseResponse'
-      summary: Establish a pull subscribe session
+      summary: Establish a push subscribe session
       tags:
       - Dataplane
   /v1/data/stream/{streamName}/consumer/{consumerName}/ack:

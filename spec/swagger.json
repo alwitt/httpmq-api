@@ -4,7 +4,7 @@
         "description": "HTTP/2 based message broker built around NATS JetStream",
         "title": "httpmq",
         "contact": {},
-        "version": "v0.4.0-rc.2"
+        "version": "v0.4.1-rc.4"
     },
     "host": "localhost:3000",
     "basePath": "/",
@@ -913,14 +913,14 @@
         },
         "/v1/data/stream/{streamName}/consumer/{consumerName}": {
             "get": {
-                "description": "Establish a JetStream pull subscribe session for a client. This is a long lived",
+                "description": "Establish a JetStream push subscribe session for a client. This is a long lived",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Dataplane"
                 ],
-                "summary": "Establish a pull subscribe session",
+                "summary": "Establish a push subscribe session",
                 "parameters": [
                     {
                         "type": "string",
